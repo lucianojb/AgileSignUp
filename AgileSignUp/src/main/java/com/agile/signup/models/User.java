@@ -4,7 +4,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private boolean fed;
+	private boolean federal;
 	private Division division;
 	private int courseID;
 	private int userID;
@@ -13,28 +13,28 @@ public class User {
 		super();
 	}
 	
-	public User(String firstName, String lastName, String email, boolean fed, Division division) {
+	public User(String firstName, String lastName, String email, boolean federal, Division division) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.fed = fed;
+		this.federal = federal;
 		this.division = division;
 	}
 	
-	public User(int userID, String firstName, String lastName, String email, boolean fed, Division division) {
+	public User(int userID, String firstName, String lastName, String email, boolean federal, Division division) {
 		super();
 		this.userID = userID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.fed = fed;
+		this.federal = federal;
 		this.division = division;
 	}
 	
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", fed=" + fed
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", federal=" + federal
 				+ ", division=" + division + "]";
 	}
 	
@@ -56,11 +56,11 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean isFed() {
-		return fed;
+	public boolean isFederal() {
+		return federal;
 	}
-	public void setFed(boolean fed) {
-		this.fed = fed;
+	public void setFederal(boolean federal) {
+		this.federal = federal;
 	}
 	public Division getDivision() {
 		return division;
@@ -91,7 +91,7 @@ public class User {
 		int result = 1;
 		result = prime * result + ((division == null) ? 0 : division.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + (fed ? 1231 : 1237);
+		result = prime * result + (federal ? 1231 : 1237);
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
@@ -113,7 +113,7 @@ public class User {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (fed != other.fed)
+		if (federal != other.federal)
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)

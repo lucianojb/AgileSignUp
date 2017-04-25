@@ -2,10 +2,20 @@ package com.agile.signup.models;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+
+@Entity
 public class Course {
+	
+	@Id
+	@GeneratedValue
 	private int courseID;
 	private Date courseDate;
-	
+	private int numberAttendees;
+	private boolean isAvailable;
 	
 	public Course() {
 		super();
@@ -14,12 +24,16 @@ public class Course {
 	public Course(Date courseDate) {
 		super();
 		this.courseDate = courseDate;
+		this.numberAttendees = 0;
+		this.isAvailable = true;
 	}
 	
 	public Course(int courseID, Date courseDate) {
 		super();
 		this.courseID = courseID;
 		this.courseDate = courseDate;
+		this.numberAttendees = 0;
+		this.isAvailable = true;
 	}
 
 	@Override
@@ -30,16 +44,35 @@ public class Course {
 	public int getCourseID() {
 		return courseID;
 	}
+	
 	public void setCourseID(int courseID) {
 		this.courseID = courseID;
 	}
+	
 	public Date getCourseDate() {
 		return courseDate;
 	}
+	
 	public void setCourseDate(Date courseDate) {
 		this.courseDate = courseDate;
 	}
 	
+	public int getNumberAttendees() {
+		return numberAttendees;
+	}
+
+	public void setNumberAttendees(int numberAttendees) {
+		this.numberAttendees = numberAttendees;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

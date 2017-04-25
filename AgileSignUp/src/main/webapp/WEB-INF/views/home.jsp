@@ -2,13 +2,14 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Agile SignUp</title>
 </head>
 <body>
 <h1>
-	Hello world!  
+	Welcome to the Agile SignUp App!  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<a href="./users">Create and edit users</a><br/>
+<a href="./courses">View, edit and assign users to courses</a><br/>
 </body>
 </html>

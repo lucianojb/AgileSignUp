@@ -1,5 +1,6 @@
 package com.agile.signup.web;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.agile.signup.models.Course;
 import com.agile.signup.models.Division;
 import com.agile.signup.models.User;
+import com.agile.signup.service.CourseService;
 import com.agile.signup.service.UserService;
 
 /**
@@ -25,6 +28,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CourseService courseService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -49,5 +55,26 @@ public class UserController {
 		model.addAttribute("user", user);
 		
 		return "edituser";
+	}
+	
+	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.GET)
+	public String selectCourse(@PathVariable("id") int id, Model model) {
+		
+		User user = userService.getUserById(id);
+		
+		model.addAttribute("user", user);
+		
+		
+		List<Course> availableCourses = courseService.getListOfAvailableCourses();
+		
+		model.addAttribute("coursesList", availableCourses);
+		
+		return "selectcourse";
+	}
+	
+	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
+	public String selectCoursePost(@PathVariable("id")int courseId, Model model){
+		
+		return "users";
 	}
 }

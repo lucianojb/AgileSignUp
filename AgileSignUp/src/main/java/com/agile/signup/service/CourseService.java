@@ -23,5 +23,11 @@ public class CourseService {
 		Course course = new Course(date);
 		return courseDao.addCourse(course);
 	}
+
+	public List<Course> getListOfAvailableCourses() {
+		// TODO Auto-generated method stub
+		//Gets a list of courses where number of attendees is less than 28
+		return null;
+	}
 	
 }

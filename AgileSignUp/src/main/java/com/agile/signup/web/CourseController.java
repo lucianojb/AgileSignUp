@@ -66,7 +66,6 @@ public class CourseController {
 		courseService.createNewCourse(dateObject);
 		
 		List<Course> courses = courseService.getListOfCourses();
-		logger.info("Printing out {}", courses.toString());
 		
 		model.addAttribute("courseData", courses);
 		

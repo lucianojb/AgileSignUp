@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.agile.signup.models.Course;
 import com.agile.signup.models.Division;
@@ -62,8 +63,7 @@ public class UserController {
 		
 		User user = userService.getUserById(id);
 		
-		model.addAttribute("user", user);
-		
+		model.addAttribute("user", user);	
 		
 		List<Course> availableCourses = courseService.getListOfAvailableCourses();
 		
@@ -73,7 +73,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
-	public String selectCoursePost(@PathVariable("id")int courseId, Model model){
+	public String selectCoursePost(@PathVariable("id")int id, @RequestParam("course")String courseID, Model model){
+		if(courseID != null){
+			logger.info("Selected course with course id {}.", courseID);
+		}
+		
 		
 		return "users";
 	}

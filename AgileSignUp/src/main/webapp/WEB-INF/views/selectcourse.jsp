@@ -14,7 +14,7 @@
 
 	<form method="POST">
 		<c:forEach items="${coursesList}" var="course">
-			<input type="radio" name="course">${course.courseDate}<br/>
+			<input type="radio" name="course" value="${course.courseID}">${course.courseDate}<br/>
     </c:forEach>
 		<button type="submit">Submit</button>
 	</form>

@@ -37,9 +37,7 @@ public class UserController {
 		
 		List<User> users = userService.getAllUsers();
 		model.addAttribute("userData", users);
-		
-		logger.info("Users are {}", users.toString());
-		
+				
 		return "users";
 	}
 	

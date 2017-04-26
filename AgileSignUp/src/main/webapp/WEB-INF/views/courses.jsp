@@ -7,16 +7,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Courses</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div style="background:black !important" class="jumbotron text-center">
+	<font color="white">
+  		  <a href="./" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a>
+  		<p>Course List</p> 
+  	 </font>
+  	 </div>
+  	 <center>
+	<a href="./createcourse "button type="button" class="btn btn-success btn-center">Create New Course</a>
+	</center>
+	<div class="container">
 	<table id="myTable"
-				class="table table-responsive table-striped table-bordered tablesorter">
+				class="table table-striped">
 				<thead class="thead-inverse">
 
 					<tr>
-						<th>Course ID</th>
-						<th>Course Date</th>
-						<th>Number Attendees</th>
+						<td align="center">Course Date</th>
+						<td align="center">Number Attendees</th>
 					</tr>
 				</thead>
 
@@ -24,15 +36,14 @@
 				<tbody>
 					<c:forEach items="${courseData}" var="course">
 						<tr>
-							<td><c:out value="${course.courseID}" /></td>
-							<td><c:out value="${course.courseDate}" /></td>
-							<td><c:out value="${course.numberAttendees}" /></td>
+							<td align="center"><c:out value="${course.courseDate}" /></td>
+							<td align="center"><c:out value="${course.numberAttendees}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 
 			</table>
-	
-	<a href="./createcourse">Create New Course</a>
+			</div>
+
 </body>
 </html>

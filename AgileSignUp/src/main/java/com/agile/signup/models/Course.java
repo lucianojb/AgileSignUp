@@ -5,14 +5,16 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="courses")
 public class Course {
 	
 	@Id
-	@GeneratedValue
 	private int courseID;
+	
 	private Date courseDate;
 	private int numberAttendees;
 	private boolean isAvailable;

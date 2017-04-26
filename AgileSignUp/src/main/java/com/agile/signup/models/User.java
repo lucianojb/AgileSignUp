@@ -1,5 +1,11 @@
 package com.agile.signup.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="user")
 public class User {
 	private String firstName;
 	private String lastName;
@@ -7,6 +13,7 @@ public class User {
 	private boolean federal;
 	private Division division;
 	private int courseID;
+	@Id
 	private int userID;
 	
 	public User(){

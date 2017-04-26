@@ -2,23 +2,70 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	    http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="courseService" class="com.agile.signup.service.CourseService"></bean>
+
+		
+	<context:component-scan base-package="com.agile.signup.service, com.agile.signup.dao" />
 	
-	<bean id="courseDao" class="com.agile.signup.dao.CourseDaoImpl"></bean>
+	<bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="txManager"/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">	
+        <property name = "driverClassName" value = "org.postgresql.Driver" />     
+        <property name="username" value="lucypastrana" />
+        <property name = "password" value = "afstas2017"/>   
+      	<property name="url" value ="jdbc:postgresql://tasagilesignup.custm6rfbdy3.us-west-2.rds.amazonaws.com:5432/agilesignup"/>
+	</bean>
+	
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+	<bean id="hibernate4AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.agile.signup.models.Course</value>
+				<value>com.agile.signup.models.User</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="courseDao" class="com.agile.signup.dao.CourseDaoImpl">
+			<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	
+	<bean id="courseService" class="com.agile.signup.service.CourseService"></bean>
 	
 	<bean id="userService" class="com.agile.signup.service.UserService"></bean>
 	
 	<bean id="userDao" class="com.agile.signup.dao.UserDaoImpl"></bean>
-		
-	<context:component-scan base-package="com.agile.signup.service, com.agile.signup.dao" />
 	
+	<!--  <bean id="masterCommitsDao" class="com.afs.sample.dao.MasterCommitsDAOImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	
+	<bean id="buildsDao" class="com.afs.sample.dao.BuildsDAOImpl">
+			<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
+	<bean id="masterBuildsDao" class="com.afs.sample.dao.MasterBuildsDAOImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean> -->
 		
 </beans>

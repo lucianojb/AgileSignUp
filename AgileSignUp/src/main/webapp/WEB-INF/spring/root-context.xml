@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="courseService" class="com.agile.signup.service.CourseService"></bean>
+	
+	<bean id="courseDao" class="com.agile.signup.dao.CourseDaoImpl"></bean>
+	
+	<bean id="userService" class="com.agile.signup.service.UserService"></bean>
+	
+	<bean id="userDao" class="com.agile.signup.dao.UserDaoImpl"></bean>
+		
+	<context:component-scan base-package="com.agile.signup.service, com.agile.signup.dao" />
+	
 		
 </beans>

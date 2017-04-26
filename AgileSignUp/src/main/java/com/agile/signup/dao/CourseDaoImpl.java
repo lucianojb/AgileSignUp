@@ -2,14 +2,18 @@ package com.agile.signup.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.agile.signup.models.Course;
 
 @Repository
+@Transactional
 public class CourseDaoImpl implements CourseDao{
 
 	private static final Logger logger = LoggerFactory.getLogger(CourseDaoImpl.class);
@@ -22,8 +26,8 @@ public class CourseDaoImpl implements CourseDao{
 	
 	@Override
 	public List<Course> getAllCourses() {
-		// TODO Auto-generated method stub
-		return null;
+        return this.sessionFactory.getCurrentSession().createQuery("from Course", Course.class).getResultList();
+
 	}
 
 	@Override

@@ -1,20 +1,39 @@
 package com.agile.signup.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User {
-	private String firstName;
-	private String lastName;
-	private String email;
-	private boolean federal;
-	private Division division;
-	private int courseID;
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="userid")
 	private int userID;
+	
+	@Column(name="firstname")
+	private String firstName;
+	
+	@Column(name="lastname")
+	private String lastName;
+	
+	@Column(name="email")
+	private String email;
+	
+	@Column(name="federal")
+	private boolean federal;
+	
+	@Column(name="division")
+	private Division division;
+	
+	@Column(name="courseid")
+	private int courseID;
+
 	
 	public User(){
 		super();

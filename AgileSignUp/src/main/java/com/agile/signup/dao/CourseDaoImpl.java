@@ -32,11 +32,19 @@ public class CourseDaoImpl implements CourseDao{
 
 	@Override
 	public boolean addCourse(Course course) {
-		// TODO Auto-generated method stub
-		logger.info("Inside of the course add method ok, geeeeez");
+		logger.info("Adding {} to database", course.toString());
 		
 		sessionFactory.getCurrentSession().saveOrUpdate(course);
 		
 		return true;
+	}
+
+	@Override
+	public List<Course> getAvailableCourses() {
+		// TODO Auto-generated method stub
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from Course where isavailable = :availability", Course.class)
+				.setParameter("availability", true)
+				.getResultList();
 	}
 }

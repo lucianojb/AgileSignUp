@@ -55,7 +55,7 @@ public class CourseController {
 		logger.info("POST create course");
 		
 		logger.info("Date is {}", date);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date dateObject = new Date();
 		try {
 			dateObject = sdf.parse(date);

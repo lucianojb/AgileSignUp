@@ -27,7 +27,7 @@ public class CourseService {
 	public List<Course> getListOfAvailableCourses() {
 		// TODO Auto-generated method stub
 		//Gets a list of courses where number of attendees is less than 28
-		return null;
+		return courseDao.getAvailableCourses();
 	}
 	
 }

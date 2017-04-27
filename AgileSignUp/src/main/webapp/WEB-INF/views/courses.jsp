@@ -38,6 +38,7 @@
 						<tr>
 							<td align="center"><c:out value="${course.courseDate}" /></td>
 							<td align="center"><c:out value="${course.numberAttendees}" /></td>
+							<td align="center"><a href="<c:url value='/attendeeslist/${course.courseID}' />" >List</a>
 						</tr>
 					</c:forEach>
 				</tbody>

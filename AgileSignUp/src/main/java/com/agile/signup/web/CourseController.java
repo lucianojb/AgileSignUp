@@ -4,6 +4,7 @@ package com.agile.signup.web;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,8 +91,12 @@ public class CourseController {
 		}
 		
 		List<User> users = userService.getUsersByCourseId(course.getCourseID());
+		List<String> emails = new LinkedList<String>();
+		for(int x = 0; x < users.size(); x++){
+			emails.add(users.get(x).getEmail());
+		}
 		
-		//List<String> emailList = users.stream().map(User::getEmail).collect(Collectors.toList());
+		model.addAttribute("emailList", emails);
 		
 		return "attendeeslist";
 	}

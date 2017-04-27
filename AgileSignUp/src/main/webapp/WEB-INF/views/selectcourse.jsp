@@ -22,8 +22,10 @@
 			</c:otherwise>
 			</c:choose>
     </c:forEach>
-    	<button type="submit" name="submit" value="remove">Remove From Course</button>
-		<button type="submit" name="submit" value="save">Submit</button>
+    	<c:if test="${not empty user.courseID}">
+    		<button type="submit" name="submit" value="remove">Remove From Course</button>
+    	</c:if>
+		<button type="submit" name="submit" value="save">Add to Selected Course</button>
 	</form>
 
 </body>

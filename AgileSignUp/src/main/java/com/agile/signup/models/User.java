@@ -102,7 +102,7 @@ public class User {
 		return courseID;
 	}
 
-	public void setCourseID(int courseID) {
+	public void setCourseID(Integer courseID) {
 		this.courseID = courseID;
 	}
 	

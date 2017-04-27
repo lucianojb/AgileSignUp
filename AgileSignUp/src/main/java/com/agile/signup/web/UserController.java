@@ -57,11 +57,48 @@ public class UserController {
 			return "error";
 		}
 		
+		List<Division> divisionList = Arrays.asList(Division.values());
+		
+		model.addAttribute("divisions", divisionList);
+		
 		model.addAttribute("user", user);
 		
 		return "edituser";
 	}
 	
+	@RequestMapping(value = "/edituser/{id}", method = RequestMethod.POST)
+	public String editUserPost(@PathVariable("id") int id, Model model, @RequestParam("firstName") String fname,
+			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myradio") String employeeType,
+			@RequestParam("myselect") String division, @RequestParam("submit")String submit){
+		logger.info("Editing User {} POST", id);
+		
+		if(submit.equals("cancel")){
+			return users(model);
+		}
+		
+		User user = userService.getUserById(id);
+		user = updateUserFromStrings(user, fname, lname, email, employeeType, division);
+		
+		userService.createOrUpdateUser(user);
+		
+		return users(model);
+	}
+	
+	private User updateUserFromStrings(User user, String fname, String lname, String email, String employeeType,
+			String division) {
+		user.setFirstName(fname);
+		user.setLastName(lname);
+		user.setEmail(email);
+		if(employeeType.equals("federal")){
+			user.setFederal(true);
+		}else{
+			user.setFederal(false);
+		}
+		user.setDivision(Division.valueOf(division));
+		
+		return user;
+	}
+
 	@RequestMapping(value = "/createuser", method = RequestMethod.GET)
 	public String createUserGet(Model model) {
 		logger.info("Creating a new user GET");
@@ -86,14 +123,14 @@ public class UserController {
 			return this.users(model);
 		}
 		
-		User user = createOrUpdateUser(fname, lname, email, employeeType, division);
+		User user = createUserFromStrings(fname, lname, email, employeeType, division);
 		
 		userService.createOrUpdateUser(user);
 		
 		return this.users(model);
 	}
 	
-	private User createOrUpdateUser(String fname, String lname, String email, String employeeType, String division) {
+	private User createUserFromStrings(String fname, String lname, String email, String employeeType, String division) {
 		User user = new User();
 		user.setFirstName(fname);
 		user.setLastName(lname);
@@ -131,38 +168,52 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
-	public String selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, @RequestParam("course")String courseID, Model model){
+	public String selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, 
+			@RequestParam(value = "course", required = false)String courseID, Model model){
 		if(courseID != null){
 			logger.info("Selected course with course id {}.", courseID);
 		}
 		
 		User user = userService.getUserById(id);
-		
 		Course course;
+		
+		if(submit.equals("remove")){
+			if(user.getCourseID() != null){
+				course = courseService.getCourseById(user.getCourseID());
+				removeAttendeeFromCourse(course, user);
+			}
+			
+			return users(model);
+		}
+		
 		if(user.getCourseID() != null){
 			course = courseService.getCourseById(user.getCourseID());
-			removeAttendeeFromCourse(course);
+			removeAttendeeFromCourse(course, user);
 		}
-		user.setCourseID(Integer.parseInt(courseID));
-		userService.createOrUpdateUser(user);
 		
 		course = courseService.getCourseById(Integer.parseInt(courseID));
-		addAttendeeToCourse(course);
+		addAttendeeToCourse(course, user);
 		
 		return users(model);
 	}
 
-	private void addAttendeeToCourse(Course course) {
+	private void addAttendeeToCourse(Course course, User user) {
 		course.setNumberAttendees(course.getNumberAttendees() + 1);
 		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
 			course.setAvailable(false);
 		}
-		courseService.updateCourse(course);		
+		courseService.updateCourse(course);
+		
+		user.setCourseID(course.getCourseID());
+		userService.createOrUpdateUser(user);
 	}
 
-	private void removeAttendeeFromCourse(Course course) {
+	private void removeAttendeeFromCourse(Course course, User user) {
 		course.setNumberAttendees(course.getNumberAttendees() - 1);
 		course.setAvailable(true);
 		courseService.updateCourse(course);		
+		
+		user.setCourseID(null);
+		userService.createOrUpdateUser(user);
 	}
 }

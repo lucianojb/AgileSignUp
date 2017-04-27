@@ -112,8 +112,12 @@ public class UserController {
 	public String selectCourse(@PathVariable("id") int id, Model model) {
 		
 		User user = userService.getUserById(id);
+		
+		if(user == null){
+			return "error";
+		}
+		
 		if(user.getCourseID() != null){
-			//set this as selected in the views
 			model.addAttribute("memberOfCourse", user.getCourseID());
 		}
 		
@@ -127,13 +131,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
-	public String selectCoursePost(@PathVariable("id")int id, @RequestParam("course")String courseID, Model model){
+	public String selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, @RequestParam("course")String courseID, Model model){
 		if(courseID != null){
 			logger.info("Selected course with course id {}.", courseID);
 		}
 		
-		Course course;
 		User user = userService.getUserById(id);
+		
+		Course course;
 		if(user.getCourseID() != null){
 			course = courseService.getCourseById(user.getCourseID());
 			removeAttendeeFromCourse(course);

@@ -2,19 +2,30 @@ package com.agile.signup.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="courses")
 public class Course {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="courseid")
 	private int courseID;
+	
+	@Column(name="coursedate")
 	private Date courseDate;
+	
+	@Column(name="numberattendees")
 	private int numberAttendees;
+	
+	@Column(name="isavailable")
 	private boolean isAvailable;
 	
 	public Course() {

@@ -2,18 +2,30 @@ package com.agile.signup.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.agile.signup.dao.UserDao;
 import com.agile.signup.models.User;
 
 public class UserService {
 
+	@Autowired
+	UserDao userDao;
+	
 	public List<User> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return userDao.getAllUsers();
 	}
 
 	public User getUserById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userDao.getUserById(id);
+	}
+
+	public void createOrUpdateUser(User user) {
+		userDao.addUser(user);
+	}
+
+	public List<User> getUsersByCourseId(int courseID) {
+		return userDao.getUsersByCourseId(courseID);
 	}
 	
 	

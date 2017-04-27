@@ -4,6 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Create a New Course</title>
 <script  src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script>
@@ -14,14 +17,21 @@
 </script>
 </head>
 <body>
-
+	<div style="background:black !important" class="jumbotron text-center">
+	<font color="white">
+  		  <a href="./" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a>
+  		<p>Course List</p> 
+  	 </font>
+  	 </div>
+	
+	<center>
 	<form name="myForm" ng-controller="DateController as dateCtrl"
 		method="POST">
 		<label for="exampleInput">Pick a date for the course:</label> 
-		<input type="date" id="pickedDate" name="pickedDate" placeholder="yyyy-MM-dd" required />
-		<button type="submit">Create new course!</button>
+		<input type="date" id="pickedDate" name="pickedDate" style= "text-align: center" placeholder="yyyy-MM-dd" required />
+		<button type="submit" class="btn btn-success btn-center">Create new course!</button>
 	</form>
 
-
+	</center>
 </body>
 </html>

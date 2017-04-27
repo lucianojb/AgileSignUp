@@ -6,17 +6,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Select a course for this user</title>
+<title>Select a course</title>
 </head>
 <body>
-	<h1>Setting course for user:</h1>
-	<c:out value="${user.firstName}"></c:out>
+	<h1>Setting course for <c:out value="${user.firstName}"></c:out> <c:out value="${user.lastName}"></c:out></h1>
 
 	<form method="POST">
 		<c:forEach items="${coursesList}" var="course">
-			<input type="radio" name="course" value="${course.courseID}">${course.courseDate}<br/>
+			<c:choose>
+			<c:when test="${course.courseID eq memberOfCourse}">
+				<input type="radio" name="course" value="${course.courseID}" checked="checked">${course.courseDate}<br/>
+			</c:when>
+			<c:otherwise>
+				<input type="radio" name="course" value="${course.courseID}">${course.courseDate}<br/>
+			</c:otherwise>
+			</c:choose>
     </c:forEach>
-		<button type="submit">Submit</button>
+    	<button type="submit" name="submit" value="remove">Remove From Course</button>
+		<button type="submit" name="submit" value="save">Submit</button>
 	</form>
 
 </body>

@@ -1,5 +1,6 @@
 package com.agile.signup.web;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,18 +34,17 @@ public class UserController {
 	@Autowired
 	CourseService courseService;
 	
+	private static final int MAX_NUMBER_ATTENDEES = 28;
+	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String users(Locale locale, Model model) {
+	public String users(Model model) {
 		logger.info("Looking at the users!");
 		
 		List<User> users = userService.getAllUsers();
 		model.addAttribute("userData", users);
-				
+						
 		return "users";
 	}
 	
@@ -53,15 +53,73 @@ public class UserController {
 		logger.info("Editing User {} GET", id);
 		
 		User user = userService.getUserById(id);
+		if(user == null){
+			return "error";
+		}
+		
 		model.addAttribute("user", user);
 		
 		return "edituser";
 	}
 	
+	@RequestMapping(value = "/createuser", method = RequestMethod.GET)
+	public String createUserGet(Model model) {
+		logger.info("Creating a new user GET");
+		
+		List<Division> divisionList = Arrays.asList(Division.values());
+		
+		model.addAttribute("divisions", divisionList);
+		
+		
+		return "createuser";
+	}
+	
+	@RequestMapping(value = "/createuser", method = RequestMethod.POST)
+	public String createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
+			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myRadio") String employeeType,
+			@RequestParam("mySelect") String division) {
+		logger.info("Create a new user POST");
+		
+		if(submit.equals("cancel")){
+			logger.info("Cancelling request to create user");
+			
+			return this.users(model);
+		}
+		
+		User user = createOrUpdateUser(fname, lname, email, employeeType, division);
+		
+		userService.createOrUpdateUser(user);
+		
+		return this.users(model);
+	}
+	
+	private User createOrUpdateUser(String fname, String lname, String email, String employeeType, String division) {
+		User user = new User();
+		user.setFirstName(fname);
+		user.setLastName(lname);
+		user.setEmail(email);
+		if(employeeType.equals("federal")){
+			user.setFederal(true);
+		}else{
+			user.setFederal(false);
+		}
+		user.setDivision(Division.valueOf(division));
+		
+		return user;
+	}
+
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.GET)
 	public String selectCourse(@PathVariable("id") int id, Model model) {
 		
 		User user = userService.getUserById(id);
+		
+		if(user == null){
+			return "error";
+		}
+		
+		if(user.getCourseID() != null){
+			model.addAttribute("memberOfCourse", user.getCourseID());
+		}
 		
 		model.addAttribute("user", user);	
 		
@@ -73,12 +131,38 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
-	public String selectCoursePost(@PathVariable("id")int id, @RequestParam("course")String courseID, Model model){
+	public String selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, @RequestParam("course")String courseID, Model model){
 		if(courseID != null){
 			logger.info("Selected course with course id {}.", courseID);
 		}
 		
+		User user = userService.getUserById(id);
 		
-		return "users";
+		Course course;
+		if(user.getCourseID() != null){
+			course = courseService.getCourseById(user.getCourseID());
+			removeAttendeeFromCourse(course);
+		}
+		user.setCourseID(Integer.parseInt(courseID));
+		userService.createOrUpdateUser(user);
+		
+		course = courseService.getCourseById(Integer.parseInt(courseID));
+		addAttendeeToCourse(course);
+		
+		return users(model);
+	}
+
+	private void addAttendeeToCourse(Course course) {
+		course.setNumberAttendees(course.getNumberAttendees() + 1);
+		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
+			course.setAvailable(false);
+		}
+		courseService.updateCourse(course);		
+	}
+
+	private void removeAttendeeFromCourse(Course course) {
+		course.setNumberAttendees(course.getNumberAttendees() - 1);
+		course.setAvailable(true);
+		courseService.updateCourse(course);		
 	}
 }

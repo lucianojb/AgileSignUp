@@ -53,6 +53,8 @@
 	
 	<bean id="userService" class="com.agile.signup.service.UserService"></bean>
 	
-	<bean id="userDao" class="com.agile.signup.dao.UserDaoImpl"></bean>
+	<bean id="userDao" class="com.agile.signup.dao.UserDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 	
 </beans>

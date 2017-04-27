@@ -32,11 +32,12 @@ public class User {
 	private Division division;
 	
 	@Column(name="courseid")
-	private int courseID;
+	private Integer courseID;
 
 	
 	public User(){
 		super();
+		this.courseID = null;
 	}
 	
 	public User(String firstName, String lastName, String email, boolean federal, Division division) {
@@ -46,6 +47,7 @@ public class User {
 		this.email = email;
 		this.federal = federal;
 		this.division = division;
+		this.courseID = null;
 	}
 	
 	public User(int userID, String firstName, String lastName, String email, boolean federal, Division division) {
@@ -56,6 +58,7 @@ public class User {
 		this.email = email;
 		this.federal = federal;
 		this.division = division;
+		this.courseID = null;
 	}
 	
 	@Override
@@ -95,7 +98,7 @@ public class User {
 		this.division = division;
 	}
 	
-	public int getCourseID() {
+	public Integer getCourseID() {
 		return courseID;
 	}
 

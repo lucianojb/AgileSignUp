@@ -1,5 +1,12 @@
 package com.agile.signup.dao;
 
-public interface UserDao {
+import java.util.List;
 
+import com.agile.signup.models.User;
+
+public interface UserDao {
+	public List<User> getAllUsers();
+	public boolean addUser(User user);
+	public User getUserById(int id);
+	public List<User> getUsersByCourseId(int courseID);
 }

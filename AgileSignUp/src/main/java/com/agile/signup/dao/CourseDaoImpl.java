@@ -41,10 +41,17 @@ public class CourseDaoImpl implements CourseDao{
 
 	@Override
 	public List<Course> getAvailableCourses() {
-		// TODO Auto-generated method stub
 		return this.sessionFactory.getCurrentSession()
 				.createQuery("from Course where isavailable = :availability", Course.class)
 				.setParameter("availability", true)
 				.getResultList();
+	}
+
+	@Override
+	public Course getCourseById(int id) {
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from Course where courseid = :courseidentity", Course.class)
+				.setParameter("courseidentity", id)
+				.getSingleResult();
 	}
 }

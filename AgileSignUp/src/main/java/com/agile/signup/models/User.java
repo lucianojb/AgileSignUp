@@ -33,6 +33,9 @@ public class User {
 	
 	@Column(name="courseid")
 	private Integer courseID;
+	
+	@Column(name="preferredcourse")
+	private Integer preferredCourseID;
 
 	
 	public User(){
@@ -48,6 +51,7 @@ public class User {
 		this.federal = federal;
 		this.division = division;
 		this.courseID = null;
+		this.preferredCourseID = null;
 	}
 	
 	public User(int userID, String firstName, String lastName, String email, boolean federal, Division division) {
@@ -59,6 +63,7 @@ public class User {
 		this.federal = federal;
 		this.division = division;
 		this.courseID = null;
+		this.preferredCourseID = null;
 	}
 	
 	@Override
@@ -104,6 +109,14 @@ public class User {
 
 	public void setCourseID(Integer courseID) {
 		this.courseID = courseID;
+	}
+	
+	public Integer getPreferredCourseID() {
+		return preferredCourseID;
+	}
+
+	public void setPreferredCourseID(Integer preferredCourseID) {
+		this.preferredCourseID = preferredCourseID;
 	}
 	
 	public int getUserID() {

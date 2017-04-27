@@ -62,6 +62,8 @@
 							</c:otherwise>
 						</c:choose>
 						<td align="center"><a
+							href="<c:url value='/preferreddate/${user.userID}' />">Set Preferred Date</a>
+						<td align="center"><a
 							href="<c:url value='/selectcourse/${user.userID}' />">Manage
 								Course</a>
 						<td align="center"><a

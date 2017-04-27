@@ -10,6 +10,17 @@
 </head>
 <body>
 	<h1>Setting course for <c:out value="${user.firstName}"></c:out> <c:out value="${user.lastName}"></c:out></h1>
+	<br />
+	User preferred date is: 
+	<c:choose>
+		<c:when test="${not empty user.preferredCourseID}">
+			${preferredCourse.courseDate}
+		</c:when>
+		<c:otherwise>
+			No preferred course date
+		</c:otherwise>
+	</c:choose>
+	<br />
 
 	<form method="POST">
 		<c:forEach items="${coursesList}" var="course">

@@ -11,6 +11,15 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/signup/resources/jquery.tablesorter.min.js"></script> 
+
+<script type="text/javascript">
+$(document).ready(function() 
+	    { 
+	        $("#myTable").tablesorter(); 
+	    } 
+	);
+</script>
 </head>
 <body>
 	<div style="background:black !important" class="jumbotron text-center">
@@ -26,12 +35,12 @@
 	</center>
 	<div class="container">
 	<table id="myTable"
-				class="table table-striped">
+				class="table table-striped tablesorter">
 				<thead class="thead-inverse">
 
 					<tr>
-						<td align="center">Course Date</th>
-						<td align="center">Number Attendees</th>
+						<th style="text-align: center">Course Date</th>
+						<th style="text-align: center">Number Attendees</th>
 					</tr>
 				</thead>
 

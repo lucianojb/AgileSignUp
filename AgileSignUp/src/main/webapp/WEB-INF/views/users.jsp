@@ -13,6 +13,16 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/signup/resources/jquery.tablesorter.min.js"></script> 
+
+<script type="text/javascript">
+$(document).ready(function() 
+	    { 
+	        $("#myTable").tablesorter(); 
+	    } 
+	);
+</script>
+
 </head>
 <body>
 
@@ -25,7 +35,7 @@
 		</font>
 	</div>
 	<div class="container">
-		<table id="myTable" class="table table-striped">
+		<table id="myTable" class="table table-striped tablesorter">
 			<thead class="thead-inverse">
 
 				<tr align="center">

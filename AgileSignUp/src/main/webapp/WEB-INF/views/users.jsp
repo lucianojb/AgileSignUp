@@ -17,10 +17,11 @@
 <body>
 
 	<div style="background: black !important" class="jumbotron text-center">
-		<font color="white"> <a href="./"
-			style="color: white; text-decoration: none"><h1>AFS Agile
-					Signup</h1></a>
-			<p>User List</p>
+		<font color="white"> 
+		  <a href="/signup/" style="color: white; text-decoration: none"><h1>AFS Agile Signup</h1></a>
+		  <a href="/signup/users" style="color:white; text-decoration:none"><h6>Users</h6></a>
+  		  <a href="/signup/courses" style="color:white; text-decoration:none"><h6>Courses</h6></a>
+		  <p>User List</p>
 		</font>
 	</div>
 	<div class="container">
@@ -73,6 +74,7 @@
 			</tbody>
 
 		</table>
+		<a href="<c:url value='/createuser' />">Create New User</a>
 	</div>
 </body>
 </html>

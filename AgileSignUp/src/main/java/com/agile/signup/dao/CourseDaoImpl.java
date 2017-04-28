@@ -26,7 +26,7 @@ public class CourseDaoImpl implements CourseDao{
 	
 	@Override
 	public List<Course> getAllCourses() {
-        return this.sessionFactory.getCurrentSession().createQuery("from Course", Course.class).getResultList();
+        return this.sessionFactory.getCurrentSession().createQuery("from Course order by coursedate", Course.class).getResultList();
 
 	}
 
@@ -42,7 +42,7 @@ public class CourseDaoImpl implements CourseDao{
 	@Override
 	public List<Course> getAvailableCourses() {
 		return this.sessionFactory.getCurrentSession()
-				.createQuery("from Course where isavailable = :availability", Course.class)
+				.createQuery("from Course where isavailable = :availability order by coursedate", Course.class)
 				.setParameter("availability", true)
 				.getResultList();
 	}

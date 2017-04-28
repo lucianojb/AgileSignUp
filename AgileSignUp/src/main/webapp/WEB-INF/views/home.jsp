@@ -10,7 +10,9 @@
 <body>
 	<div style="background:black !important" class="jumbotron text-center">
 	<font color="white">
-  		  <a href="./" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a> 
+  		  <a href="/signup/" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a> 
+  		  <a href="/signup/users" style="color:white; text-decoration:none"><h6>Users</h6></a>
+  		  <a href="/signup/courses" style="color:white; text-decoration:none"><h6>Courses</h6></a>
   	 </font>
   	 </div>
 
@@ -19,11 +21,11 @@
 <div class="row">
   <div class="col-sm-6">
   <h1> Edit Users</h1>
-  <a href="./users">Create and edit users</a><br/>
+  <a href="./users">Create, edit and assign users to courses</a><br/>
   </div>
   <div class="col-sm-6">
   <h1> Edit Courses </h1>
-  <a href="./courses">View, edit and assign users to courses</a><br/></div>
+  <a href="./courses">View courses and generate email lists</a><br/></div>
 </div>
 </center>
 </body>

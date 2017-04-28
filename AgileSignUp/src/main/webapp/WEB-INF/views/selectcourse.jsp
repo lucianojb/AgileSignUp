@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,7 +15,7 @@
 	User preferred date is: 
 	<c:choose>
 		<c:when test="${not empty user.preferredCourseID}">
-			${preferredCourse.courseDate}
+			<fmt:formatDate value="${preferredCourse.courseDate}" pattern="yyyy-MM-dd" />
 		</c:when>
 		<c:otherwise>
 			No preferred course date
@@ -23,16 +24,18 @@
 	<br />
 
 	<form method="POST">
+	<select name="course">
 		<c:forEach items="${coursesList}" var="course">
 			<c:choose>
 			<c:when test="${course.courseID eq memberOfCourse}">
-				<input type="radio" name="course" value="${course.courseID}" checked="checked">${course.courseDate}<br/>
+				<option value="${course.courseID}" selected="selected"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
 			</c:when>
 			<c:otherwise>
-				<input type="radio" name="course" value="${course.courseID}">${course.courseDate}<br/>
+				<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
 			</c:otherwise>
 			</c:choose>
     </c:forEach>
+    </select>
     	<c:if test="${not empty user.courseID}">
     		<button type="submit" name="submit" value="remove">Remove From Course</button>
     	</c:if>

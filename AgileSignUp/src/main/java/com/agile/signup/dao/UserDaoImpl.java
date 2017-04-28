@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public List<User> getAllUsers() {
-		return this.sessionFactory.getCurrentSession().createQuery("from User", User.class).getResultList();
+		return this.sessionFactory.getCurrentSession().createQuery("from User order by lastname", User.class).getResultList();
 
 	}
 
@@ -48,7 +48,7 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public List<User> getUsersByCourseId(int courseID) {
 		return this.sessionFactory.getCurrentSession()
-				.createQuery("from User where courseid = :courseidentify", User.class)
+				.createQuery("from User where courseid = :courseidentify order by lastname", User.class)
 				.setParameter("courseidentify", courseID).getResultList();
 	}
 }

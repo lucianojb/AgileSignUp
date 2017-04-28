@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.agile.signup.models.Course;
 import com.agile.signup.models.Division;
@@ -67,13 +68,15 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/edituser/{id}", method = RequestMethod.POST)
-	public String editUserPost(@PathVariable("id") int id, Model model, @RequestParam("firstName") String fname,
+	public RedirectView editUserPost(@PathVariable("id") int id, Model model, @RequestParam("firstName") String fname,
 			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myradio") String employeeType,
 			@RequestParam("myselect") String division, @RequestParam("submit")String submit){
 		logger.info("Editing User {} POST", id);
 		
 		if(submit.equals("cancel")){
-			return users(model);
+			RedirectView rview = new RedirectView();
+			rview.setUrl("../users");
+			return rview;
 		}
 		
 		User user = userService.getUserById(id);
@@ -81,7 +84,9 @@ public class UserController {
 		
 		userService.createOrUpdateUser(user);
 		
-		return users(model);
+		RedirectView rview = new RedirectView();
+		rview.setUrl("../users");
+		return rview;
 	}
 	
 	private User updateUserFromStrings(User user, String fname, String lname, String email, String employeeType,
@@ -112,7 +117,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/createuser", method = RequestMethod.POST)
-	public String createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
+	public RedirectView createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
 			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myRadio") String employeeType,
 			@RequestParam("mySelect") String division) {
 		logger.info("Create a new user POST");
@@ -120,14 +125,16 @@ public class UserController {
 		if(submit.equals("cancel")){
 			logger.info("Cancelling request to create user");
 			
-			return this.users(model);
+			RedirectView rview = new RedirectView("./users");
+			return rview;
 		}
 		
 		User user = createUserFromStrings(fname, lname, email, employeeType, division);
 		
 		userService.createOrUpdateUser(user);
 		
-		return this.users(model);
+		RedirectView rview = new RedirectView("./users");
+		return rview;
 	}
 	
 	private User createUserFromStrings(String fname, String lname, String email, String employeeType, String division) {
@@ -162,7 +169,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/preferreddate/{id}", method = RequestMethod.POST)
-	public String selectPreferredCourse(@PathVariable("id")int id, Model model, 
+	public RedirectView selectPreferredCourse(@PathVariable("id")int id, Model model, 
 			@RequestParam(value="course", required=false) String preferredID){
 		
 		if(preferredID != null && !preferredID.isEmpty()){
@@ -173,7 +180,8 @@ public class UserController {
 			userService.createOrUpdateUser(user);
 		}
 		
-		return users(model);
+		RedirectView rview = new RedirectView("../users");
+		return rview;
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.GET)
@@ -204,7 +212,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
-	public String selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, 
+	public RedirectView selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, 
 			@RequestParam(value = "course", required = false)String courseID, Model model){
 		if(courseID != null){
 			logger.info("Selected course with course id {}.", courseID);
@@ -219,7 +227,8 @@ public class UserController {
 				removeAttendeeFromCourse(course, user);
 			}
 			
-			return users(model);
+			RedirectView rview = new RedirectView("../users");
+			return rview;
 		}
 		
 		if(user.getCourseID() != null){
@@ -230,7 +239,8 @@ public class UserController {
 		course = courseService.getCourseById(Integer.parseInt(courseID));
 		addAttendeeToCourse(course, user);
 		
-		return users(model);
+		RedirectView rview = new RedirectView("../users");
+		return rview;
 	}
 
 	private void addAttendeeToCourse(Course course, User user) {

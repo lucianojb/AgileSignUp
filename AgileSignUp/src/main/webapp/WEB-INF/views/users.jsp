@@ -73,8 +73,6 @@ $(document).ready(function()
 							</c:otherwise>
 						</c:choose>
 						<td align="center"><a
-							href="<c:url value='/preferreddate/${user.userID}' />">Set Preferred Date</a>
-						<td align="center"><a
 							href="<c:url value='/selectcourse/${user.userID}' />">Manage
 								Course</a>
 						<td align="center"><a
@@ -84,7 +82,6 @@ $(document).ready(function()
 			</tbody>
 
 		</table>
-		<a href="<c:url value='/createuser' />">Create New User</a>
 	</div>
 </body>
 </html>

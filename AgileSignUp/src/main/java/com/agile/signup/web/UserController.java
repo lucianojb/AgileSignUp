@@ -104,54 +104,6 @@ public class UserController {
 		return user;
 	}
 
-	@RequestMapping(value = "/createuser", method = RequestMethod.GET)
-	public String createUserGet(Model model) {
-		logger.info("Creating a new user GET");
-		
-		List<Division> divisionList = Arrays.asList(Division.values());
-		
-		model.addAttribute("divisions", divisionList);
-		
-		
-		return "createuser";
-	}
-	
-	@RequestMapping(value = "/createuser", method = RequestMethod.POST)
-	public RedirectView createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
-			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myRadio") String employeeType,
-			@RequestParam("mySelect") String division) {
-		logger.info("Create a new user POST");
-		
-		if(submit.equals("cancel")){
-			logger.info("Cancelling request to create user");
-			
-			RedirectView rview = new RedirectView("./users");
-			return rview;
-		}
-		
-		User user = createUserFromStrings(fname, lname, email, employeeType, division);
-		
-		userService.createOrUpdateUser(user);
-		
-		RedirectView rview = new RedirectView("./users");
-		return rview;
-	}
-	
-	private User createUserFromStrings(String fname, String lname, String email, String employeeType, String division) {
-		User user = new User();
-		user.setFirstName(fname);
-		user.setLastName(lname);
-		user.setEmail(email);
-		if(employeeType.equals("federal")){
-			user.setFederal(true);
-		}else{
-			user.setFederal(false);
-		}
-		user.setDivision(Division.valueOf(division));
-		
-		return user;
-	}
-
 	@RequestMapping(value = "/preferreddate/{id}", method = RequestMethod.GET)
 	public String selectPreferredCourse(@PathVariable("id") int id, Model model) {
 		

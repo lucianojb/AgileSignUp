@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,7 +22,13 @@
 				<option value="${division}">${division}</option>
 			</c:forEach>
 		</select>
-		
+		Select preferred course date:<br />
+		<select name="course">
+		<c:forEach items="${coursesList}" var="course">
+			<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
+		</c:forEach>
+		</select>
+		<br />
 		<button type="submit" name="submit" value="create">Create</button>
 		<button type="submit" name="submit" value="cancel">Cancel</button>
 	</form>

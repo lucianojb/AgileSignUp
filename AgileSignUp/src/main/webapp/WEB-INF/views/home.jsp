@@ -21,7 +21,7 @@
 <div class="row">
   <div class="col-sm-6">
   <h1> Edit Users</h1>
-  <a href="./users">Create, edit and assign users to courses</a><br/>
+  <a href="./users">Edit and assign users to courses</a><br/>
   </div>
   <div class="col-sm-6">
   <h1> Edit Courses </h1>

@@ -16,93 +16,85 @@
 <title>Create User</title>
 </head>
 <body>
-
-	<div style="background:black !important" class="jumbotron text-center">
-	<font color="white">
-  		  <a href="./" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a>
-  		<p>Course List</p> 
-  	 </font>
-  	 </div>
-  	 
+	<jsp:include page="header.jsp" /> 	 
+	
   	<form method="POST">
 	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 	
   	<div class="container">
-  	<div class= "row">
-  	<div class="col-sm-3 col-sm-offset-3">	
-  		<div class="form-group">
-			<label for="firstName">First Name</label>
-			 <input class="form-control" id="firstName" name="firstName" type="text" />
-		</div>
-	</div>
+  		<div class= "row">
+  			<div class="col-sm-3 col-sm-offset-3">	
+  				<div class="form-group">
+					<label for="firstName">First Name</label>
+			 		<input class="form-control" id="firstName" name="firstName" type="text" />
+				</div>
+			</div>
 		
-	<div class="col-sm-3">	
-		<div class="form-group">
-			<label for="lastName">Last Name</label>
-			 <input class="form-control" id="lastName" name="lastName" type="text" />
+			<div class="col-sm-3">	
+				<div class="form-group">
+					<label for="lastName">Last Name</label>
+			 		<input class="form-control" id="lastName" name="lastName" type="text" />
+				</div>
+			</div>
 		</div>
-	</div>
-	</div>
-	<div class = "row">
-		<div class="col-sm-6 col-centered">	
-		<div class="form-group">
-			<label for="email">Email</label>
-			 <input class="form-control" id="email" name="email" type="text" />
-		</div>
-		</div>
+	
+		<div class = "row">
+			<div class="col-sm-6 col-centered">	
+				<div class="form-group">
+					<label for="email">Email</label>
+			 		<input class="form-control" id="email" name="email" type="text" />
+				</div>
+			</div>
 		</div>
 
-	<div class = "row">
+		<div class = "row">
 			<div class="col-sm-3 col-sm-offset-3">
-		  	<div class="form-group">
-		  	<label for="fed">Federal or Contractor</label>
-			<select class="form-control" name="fed" id="fed">
-				<option value="federal" > Federal</option>
-				<option value="contractor"> Contractor</option>
-			</select>
-			</div>
+		  		<div class="form-group">
+		  			<label for="fed">Federal or Contractor</label>
+					<select class="form-control" name="fed" id="fed">
+						<option value="federal" > Federal</option>
+						<option value="contractor"> Contractor</option>
+					</select>
+				</div>
 			</div>
 	
-		<div class="col-sm-3">
-		<div class="form-group">
-				<label for="mySelect">Division</label>
-		<select class="form-control" name="mySelect" id="mySelect">
-
-			<c:forEach items="${divisions}" var="division">
-				<option value="${division}">${division}</option>
-			</c:forEach>
-		</select>
-		</div>
-		</div>
-
-	</div>
-	
-		
-	<div class = "row">
-		<div class="col-sm-6 col-centered">	
-		<div class="form-group">
-		<label for="course">Select preferred course date:</label>
-			<select class="form-control" name="course">
-			<option selected value=-1>No Preferred Date</option>
-				<c:forEach items="${coursesList}" var="course">
-					<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
-				</c:forEach>
-			</select>
-		</div>
-		</div>
-		</div>
-	<div class = "row">
-		<div class = "col-sm-2 col-sm-offset-4">
-		<button type="submit" class="btn btn-success btn-block" name="submit" value="create">Register</button>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label for="mySelect">Division</label>
+						<select class="form-control" name="mySelect" id="mySelect">
+						<c:forEach items="${divisions}" var="division">
+							<option value="${division}">${division}</option>
+						</c:forEach>
+						</select>
+				</div>
+			</div>
 		</div>
 		
-		<div class = "col-sm-2">
-			<button type="submit" class="btn btn-block" name="submit" value="cancel">Cancel</button>
+		<div class = "row">
+			<div class="col-sm-6 col-centered">	
+				<div class="form-group">
+					<label for="course">Select preferred course date:</label>
+						<select class="form-control" name="course">
+							<option selected value=-1>No Preferred Date</option>
+						<c:forEach items="${coursesList}" var="course">
+							<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
+						</c:forEach>
+						</select>
+				</div>
+			</div>
 		</div>
-	</div>	
+		
+		<div class = "row">
+			<div class = "col-sm-2 col-sm-offset-4">
+				<button type="submit" class="btn btn-success btn-block" name="submit" value="create">Register</button>
+			</div>
+		
+			<div class = "col-sm-2">
+				<button type="submit" class="btn btn-block" name="submit" value="cancel">Cancel</button>
+			</div>
+		</div>
+			
 	</div>
 	</form>
-	</div>
-	</div>
 </body>
 </html>

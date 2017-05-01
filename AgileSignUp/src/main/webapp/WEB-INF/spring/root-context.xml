@@ -57,4 +57,5 @@
 			<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
+	<bean id="customAuthenticationSuccessHandler" class="com.agile.signup.security.customAuthenticationSuccessHandler"/>
 </beans>

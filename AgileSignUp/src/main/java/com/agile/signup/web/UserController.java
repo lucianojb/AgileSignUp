@@ -1,10 +1,7 @@
 package com.agile.signup.web;
 
 import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +65,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/edituser/{id}", method = RequestMethod.POST)
-	public RedirectView editUserPost(@PathVariable("id") int id, Model model, @RequestParam("firstName") String fname,
+	public String editUserPost(@PathVariable("id") int id, Model model, @RequestParam("firstName") String fname,
 			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myradio") String employeeType,
 			@RequestParam("myselect") String division, @RequestParam("submit")String submit){
 		logger.info("Editing User {} POST", id);
@@ -76,7 +73,7 @@ public class UserController {
 		if(submit.equals("cancel")){
 			RedirectView rview = new RedirectView();
 			rview.setUrl("../users");
-			return rview;
+			return "redirect:../users";
 		}
 		
 		User user = userService.getUserById(id);
@@ -86,7 +83,7 @@ public class UserController {
 		
 		RedirectView rview = new RedirectView();
 		rview.setUrl("../users");
-		return rview;
+		return "redirect:../users";
 	}
 	
 	private User updateUserFromStrings(User user, String fname, String lname, String email, String employeeType,
@@ -102,38 +99,6 @@ public class UserController {
 		user.setDivision(Division.valueOf(division));
 		
 		return user;
-	}
-
-	@RequestMapping(value = "/preferreddate/{id}", method = RequestMethod.GET)
-	public String selectPreferredCourse(@PathVariable("id") int id, Model model) {
-		
-		User user = userService.getUserById(id);
-		
-		if(user == null){
-			model.addAttribute("errorMessage", "No user id");
-			return "error";
-		}
-		
-		List<Course> courses = courseService.getListOfCourses();
-		model.addAttribute("coursesList", courses);
-		
-		return "preferreddate";
-	}
-	
-	@RequestMapping(value = "/preferreddate/{id}", method = RequestMethod.POST)
-	public RedirectView selectPreferredCourse(@PathVariable("id")int id, Model model, 
-			@RequestParam(value="course", required=false) String preferredID){
-		
-		if(preferredID != null && !preferredID.isEmpty()){
-			Integer preferredCourseID = Integer.parseInt(preferredID);
-			User user = userService.getUserById(id);
-			
-			user.setPreferredCourseID(preferredCourseID);
-			userService.createOrUpdateUser(user);
-		}
-		
-		RedirectView rview = new RedirectView("../users");
-		return rview;
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.GET)
@@ -164,7 +129,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
-	public RedirectView selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, 
+	public String selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, 
 			@RequestParam(value = "course", required = false)String courseID, Model model){
 		if(courseID != null){
 			logger.info("Selected course with course id {}.", courseID);
@@ -179,8 +144,7 @@ public class UserController {
 				removeAttendeeFromCourse(course, user);
 			}
 			
-			RedirectView rview = new RedirectView("../users");
-			return rview;
+			return "redirect:../users";
 		}
 		
 		if(user.getCourseID() != null){
@@ -191,8 +155,7 @@ public class UserController {
 		course = courseService.getCourseById(Integer.parseInt(courseID));
 		addAttendeeToCourse(course, user);
 		
-		RedirectView rview = new RedirectView("../users");
-		return rview;
+		return "redirect:../users";
 	}
 
 	private void addAttendeeToCourse(Course course, User user) {

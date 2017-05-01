@@ -9,9 +9,10 @@
 </head>
 <body>
 	<form method="POST">
-		<input type="text" name="lastName" value="${user.lastName}" /><br />
-		<input type="text" name="firstName" value="${user.firstName}" /><br />
-		<input type="text" name="email" value="${user.email}" /><br />
+		First Name: <input type="text" name="firstName" value="${user.firstName}" /><br />
+		Last Name: <input type="text" name="lastName" value="${user.lastName}" /><br />
+		Email: <input type="text" name="email" value="${user.email}" /><br />
+		Federal or Contractor?<br />
 		<c:choose>
 			<c:when test="${user.federal}">
 					<input type="radio" name="myradio" value="1" checked="checked"/>Federal
@@ -24,6 +25,19 @@
 				<br />
 			</c:otherwise>
 		</c:choose>
+		Division:<br />
+		<select name="myselect">
+			<c:forEach items="${divisions}" var="division">
+				<c:choose>
+					<c:when test="${division eq user.division}">
+						<option selected="selected" value="${division}">${division}</option>
+					</c:when>
+					<c:otherwise>
+						<option value="${division}">${division}</option>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</select><br />
 		<button type="submit" name="submit" value="save">Save</button>
 		<button type="submit" name="submit" value="cancel">Cancel</button>	
 	</form>

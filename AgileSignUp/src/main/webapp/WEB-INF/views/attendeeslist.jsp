@@ -12,5 +12,7 @@
 	<c:forEach items="${emailList}" var="email">
 			${email};
 	</c:forEach>
+	<br />
+	<a href="../courses">Return to courses</a>
 </body>
 </html>

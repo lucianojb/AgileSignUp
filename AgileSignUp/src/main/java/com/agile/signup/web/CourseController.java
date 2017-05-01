@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.agile.signup.models.Course;
 import com.agile.signup.models.User;
@@ -60,7 +63,7 @@ public class CourseController {
 	}
 	
 	@RequestMapping(value = "/createcourse", method = RequestMethod.POST)
-	public String createCoursePost(Model model, @RequestParam("pickedDate") String date) {
+	public RedirectView createCoursePost(Model model, @RequestParam("pickedDate") String date) {
 		logger.info("POST create course");
 		
 		logger.info("Date is {}", date);
@@ -69,16 +72,36 @@ public class CourseController {
 		try {
 			dateObject = sdf.parse(date);
 		} catch (ParseException e) {
-			return "createcourse";
+			RedirectView rview = new RedirectView();
+			rview.setUrl("createcourse");
+			rview.addStaticAttribute("errorMessage", "Error creating course with selected date.");
+			return rview;
+		}
+		
+		Date currentDate = new Date();
+		
+		if(dateObject.before(currentDate)){
+			logger.info("in hereeee");
+			RedirectView rview = new RedirectView();
+			rview.setUrl("createcourse");
+			rview.addStaticAttribute("errorMessage", "Cannot create a course in the past.");
+			return rview;
+		}
+		
+		List<Course> coursesOnDate = courseService.getCoursesByDate(dateObject);
+		if(!coursesOnDate.isEmpty()){
+			RedirectView rview = new RedirectView();
+			rview.setUrl("createcourse");
+			rview.addStaticAttribute("errorMessage", "Course on this date already exists!");
+			return rview;
 		}
 		
 		courseService.createNewCourse(dateObject);
+						
+		RedirectView rview = new RedirectView();
+		rview.setUrl("courses");
 		
-		List<Course> courses = courseService.getListOfCourses();
-		
-		model.addAttribute("courseData", courses);
-		
-		return "courses";
+		return rview;
 	}
 	
 	@RequestMapping(value = "/attendeeslist/{id}", method = RequestMethod.GET)

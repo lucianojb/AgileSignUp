@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.agile.signup.models.Course;
 import com.agile.signup.models.Division;
@@ -57,44 +58,39 @@ public class UserController {
 			return "error";
 		}
 		
+		List<Division> divisionList = Arrays.asList(Division.values());
+		
+		model.addAttribute("divisions", divisionList);
+		
 		model.addAttribute("user", user);
 		
 		return "edituser";
 	}
 	
-	@RequestMapping(value = "/createuser", method = RequestMethod.GET)
-	public String createUserGet(Model model) {
-		logger.info("Creating a new user GET");
-		
-		List<Division> divisionList = Arrays.asList(Division.values());
-		
-		model.addAttribute("divisions", divisionList);
-		
-		
-		return "createuser";
-	}
-	
-	@RequestMapping(value = "/createuser", method = RequestMethod.POST)
-	public String createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
-			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myRadio") String employeeType,
-			@RequestParam("mySelect") String division) {
-		logger.info("Create a new user POST");
+	@RequestMapping(value = "/edituser/{id}", method = RequestMethod.POST)
+	public RedirectView editUserPost(@PathVariable("id") int id, Model model, @RequestParam("firstName") String fname,
+			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myradio") String employeeType,
+			@RequestParam("myselect") String division, @RequestParam("submit")String submit){
+		logger.info("Editing User {} POST", id);
 		
 		if(submit.equals("cancel")){
-			logger.info("Cancelling request to create user");
-			
-			return this.users(model);
+			RedirectView rview = new RedirectView();
+			rview.setUrl("../users");
+			return rview;
 		}
 		
-		User user = createOrUpdateUser(fname, lname, email, employeeType, division);
+		User user = userService.getUserById(id);
+		user = updateUserFromStrings(user, fname, lname, email, employeeType, division);
 		
 		userService.createOrUpdateUser(user);
 		
-		return this.users(model);
+		RedirectView rview = new RedirectView();
+		rview.setUrl("../users");
+		return rview;
 	}
 	
-	private User createOrUpdateUser(String fname, String lname, String email, String employeeType, String division) {
-		User user = new User();
+	private User updateUserFromStrings(User user, String fname, String lname, String email, String employeeType,
+			String division) {
 		user.setFirstName(fname);
 		user.setLastName(lname);
 		user.setEmail(email);
@@ -108,6 +104,38 @@ public class UserController {
 		return user;
 	}
 
+	@RequestMapping(value = "/preferreddate/{id}", method = RequestMethod.GET)
+	public String selectPreferredCourse(@PathVariable("id") int id, Model model) {
+		
+		User user = userService.getUserById(id);
+		
+		if(user == null){
+			model.addAttribute("errorMessage", "No user id");
+			return "error";
+		}
+		
+		List<Course> courses = courseService.getListOfCourses();
+		model.addAttribute("coursesList", courses);
+		
+		return "preferreddate";
+	}
+	
+	@RequestMapping(value = "/preferreddate/{id}", method = RequestMethod.POST)
+	public RedirectView selectPreferredCourse(@PathVariable("id")int id, Model model, 
+			@RequestParam(value="course", required=false) String preferredID){
+		
+		if(preferredID != null && !preferredID.isEmpty()){
+			Integer preferredCourseID = Integer.parseInt(preferredID);
+			User user = userService.getUserById(id);
+			
+			user.setPreferredCourseID(preferredCourseID);
+			userService.createOrUpdateUser(user);
+		}
+		
+		RedirectView rview = new RedirectView("../users");
+		return rview;
+	}
+	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.GET)
 	public String selectCourse(@PathVariable("id") int id, Model model) {
 		
@@ -123,6 +151,11 @@ public class UserController {
 		
 		model.addAttribute("user", user);	
 		
+		if(user.getPreferredCourseID() != null){
+			Course preferredCourse = courseService.getCourseById(user.getPreferredCourseID());
+			model.addAttribute("preferredCourse", preferredCourse);
+		}
+		
 		List<Course> availableCourses = courseService.getListOfAvailableCourses();
 		
 		model.addAttribute("coursesList", availableCourses);
@@ -131,38 +164,54 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
-	public String selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, @RequestParam("course")String courseID, Model model){
+	public RedirectView selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, 
+			@RequestParam(value = "course", required = false)String courseID, Model model){
 		if(courseID != null){
 			logger.info("Selected course with course id {}.", courseID);
 		}
 		
 		User user = userService.getUserById(id);
-		
 		Course course;
+		
+		if(submit.equals("remove")){
+			if(user.getCourseID() != null){
+				course = courseService.getCourseById(user.getCourseID());
+				removeAttendeeFromCourse(course, user);
+			}
+			
+			RedirectView rview = new RedirectView("../users");
+			return rview;
+		}
+		
 		if(user.getCourseID() != null){
 			course = courseService.getCourseById(user.getCourseID());
-			removeAttendeeFromCourse(course);
+			removeAttendeeFromCourse(course, user);
 		}
-		user.setCourseID(Integer.parseInt(courseID));
-		userService.createOrUpdateUser(user);
 		
 		course = courseService.getCourseById(Integer.parseInt(courseID));
-		addAttendeeToCourse(course);
+		addAttendeeToCourse(course, user);
 		
-		return users(model);
+		RedirectView rview = new RedirectView("../users");
+		return rview;
 	}
 
-	private void addAttendeeToCourse(Course course) {
+	private void addAttendeeToCourse(Course course, User user) {
 		course.setNumberAttendees(course.getNumberAttendees() + 1);
 		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
 			course.setAvailable(false);
 		}
-		courseService.updateCourse(course);		
+		courseService.updateCourse(course);
+		
+		user.setCourseID(course.getCourseID());
+		userService.createOrUpdateUser(user);
 	}
 
-	private void removeAttendeeFromCourse(Course course) {
+	private void removeAttendeeFromCourse(Course course, User user) {
 		course.setNumberAttendees(course.getNumberAttendees() - 1);
 		course.setAvailable(true);
 		courseService.updateCourse(course);		
+		
+		user.setCourseID(null);
+		userService.createOrUpdateUser(user);
 	}
 }

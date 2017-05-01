@@ -1,5 +1,6 @@
 package com.agile.signup.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -26,7 +27,7 @@ public class CourseDaoImpl implements CourseDao{
 	
 	@Override
 	public List<Course> getAllCourses() {
-        return this.sessionFactory.getCurrentSession().createQuery("from Course", Course.class).getResultList();
+        return this.sessionFactory.getCurrentSession().createQuery("from Course order by coursedate", Course.class).getResultList();
 
 	}
 
@@ -42,7 +43,7 @@ public class CourseDaoImpl implements CourseDao{
 	@Override
 	public List<Course> getAvailableCourses() {
 		return this.sessionFactory.getCurrentSession()
-				.createQuery("from Course where isavailable = :availability", Course.class)
+				.createQuery("from Course where isavailable = :availability order by coursedate", Course.class)
 				.setParameter("availability", true)
 				.getResultList();
 	}
@@ -53,5 +54,13 @@ public class CourseDaoImpl implements CourseDao{
 				.createQuery("from Course where courseid = :courseidentity", Course.class)
 				.setParameter("courseidentity", id)
 				.getSingleResult();
+	}
+	
+	@Override
+	public List<Course> getCourseByDate(Date date) {
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from Course where coursedate = :date", Course.class)
+				.setParameter("date", date)
+				.getResultList();
 	}
 }

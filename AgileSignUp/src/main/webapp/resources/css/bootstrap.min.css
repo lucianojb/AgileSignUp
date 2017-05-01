@@ -7426,4 +7426,6 @@ button.close {
     width: 100%;
 }
 .navbar-brand {float:none;}
+
+.top-buffer { margin-top:20px; }
 /*# sourceMappingURL=bootstrap.min.css.map */

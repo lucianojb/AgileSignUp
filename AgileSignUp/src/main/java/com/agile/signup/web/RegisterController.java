@@ -54,8 +54,7 @@ public class RegisterController {
 		if(submit.equals("cancel")){
 			logger.info("Cancelling request to create user");
 			
-			RedirectView rview = new RedirectView("./");
-			return rview;
+			return "redirect:./";
 		}
 		
 		User user = createUserFromStrings(fname, lname, email, employeeType, division);
@@ -63,8 +62,7 @@ public class RegisterController {
 		
 		userService.createOrUpdateUser(user);
 		
-		RedirectView rview = new RedirectView("./");
-		return rview;
+		return "redirect:./";
 	}
 	
 	

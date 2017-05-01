@@ -14,7 +14,7 @@
 	<br />
 	User preferred date is: 
 	<c:choose>
-		<c:when test="${not empty user.preferredCourseID}">
+		<c:when test="${not empty user.preferredCourseID && user.preferredCourseID > -1}">
 			<fmt:formatDate value="${preferredCourse.courseDate}" pattern="yyyy-MM-dd" />
 		</c:when>
 		<c:otherwise>
@@ -25,6 +25,8 @@
 
 	<form method="POST">
 	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+	<c:choose>
+	<c:when test="${not empty coursesList}">
 	<select name="course">
 		<c:forEach items="${coursesList}" var="course">
 			<c:choose>
@@ -37,10 +39,16 @@
 			</c:choose>
     </c:forEach>
     </select>
-    	<c:if test="${not empty user.courseID}">
-    		<button type="submit" name="submit" value="remove">Remove From Course</button>
-    	</c:if>
 		<button type="submit" name="submit" value="save">Add to Selected Course</button>
+    </c:when>
+    <c:otherwise>
+    	No other courses available to add user to!
+    </c:otherwise>   
+    </c:choose>
+    <br />
+    <c:if test="${not empty user.courseID}">
+    		<button type="submit" name="submit" value="remove">Remove From Assigned Course</button>
+    </c:if>
 	</form>
 
 </body>

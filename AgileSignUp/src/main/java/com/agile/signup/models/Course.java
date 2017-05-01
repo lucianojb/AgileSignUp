@@ -49,7 +49,8 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [courseID=" + courseID + ", courseDate=" + courseDate + "]";
+		return "Course [courseID=" + courseID + ", courseDate=" + courseDate + ", numberAttendees=" + numberAttendees
+				+", isAvailable=" + isAvailable + "]";
 	}
 	
 	public int getCourseID() {
@@ -77,6 +78,10 @@ public class Course {
 	}
 
 	public boolean isAvailable() {
+		return isAvailable;
+	}
+	
+	public boolean getIsAvailable() {
 		return isAvailable;
 	}
 

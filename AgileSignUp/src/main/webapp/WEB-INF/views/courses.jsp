@@ -41,6 +41,7 @@ $(document).ready(function()
 					<tr>
 						<th style="text-align: center">Course Date</th>
 						<th style="text-align: center">Number Attendees</th>
+						<th style="text-align: center">Available?</th>
 					</tr>
 				</thead>
 
@@ -50,6 +51,14 @@ $(document).ready(function()
 						<tr>
 							<td align="center"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></td>
 							<td align="center"><c:out value="${course.numberAttendees}" /></td>
+							<td align="center"><c:choose>
+								<c:when test="${course.isAvailable}">
+							Yes <br />
+								</c:when>
+								<c:otherwise>
+        					No <br />
+								</c:otherwise>
+							</c:choose></td>
 							<td align="center"><a href="<c:url value='/attendeeslist/${course.courseID}' />" >Generate Email List</a>
 						</tr>
 					</c:forEach>

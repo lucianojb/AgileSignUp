@@ -24,6 +24,7 @@
 	<br />
 
 	<form method="POST">
+	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 	<select name="course">
 		<c:forEach items="${coursesList}" var="course">
 			<c:choose>

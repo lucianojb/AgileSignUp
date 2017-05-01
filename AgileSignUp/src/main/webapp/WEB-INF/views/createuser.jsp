@@ -11,6 +11,7 @@
 </head>
 <body>
 	<form method="POST">
+		<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 		<b>First Name</b><input type="text" name="firstName"/><br />
 		<b>Last Name</b><input type="text" name="lastName"/><br />
 		<b>Email</b><input type="text" name="email"/><br /> 

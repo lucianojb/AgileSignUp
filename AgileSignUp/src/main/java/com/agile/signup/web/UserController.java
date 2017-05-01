@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.agile.signup.models.Course;
@@ -116,7 +117,7 @@ public class UserController {
 		
 		model.addAttribute("user", user);	
 		
-		if(user.getPreferredCourseID() != null){
+		if(user.getPreferredCourseID() != null && user.getPreferredCourseID() >= 0){
 			Course preferredCourse = courseService.getCourseById(user.getPreferredCourseID());
 			model.addAttribute("preferredCourse", preferredCourse);
 		}
@@ -130,7 +131,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.POST)
 	public String selectCoursePost(@PathVariable("id")int id,@RequestParam("submit") String submit, 
-			@RequestParam(value = "course", required = false)String courseID, Model model){
+			@RequestParam(value = "course", required = false)Integer courseID, Model model, RedirectAttributes redirectAttributes){
 		if(courseID != null){
 			logger.info("Selected course with course id {}.", courseID);
 		}
@@ -152,7 +153,11 @@ public class UserController {
 			removeAttendeeFromCourse(course, user);
 		}
 		
-		course = courseService.getCourseById(Integer.parseInt(courseID));
+		course = courseService.getCourseById(courseID);
+		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
+			redirectAttributes.addFlashAttribute("errorMessage", "Could not add to course, course was full");
+			return "redirect:../error";
+		}
 		addAttendeeToCourse(course, user);
 		
 		return "redirect:../users";

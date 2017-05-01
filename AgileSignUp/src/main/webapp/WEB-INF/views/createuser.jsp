@@ -23,8 +23,9 @@
 				<option value="${division}">${division}</option>
 			</c:forEach>
 		</select>
-		Select preferred course date:<br />
+		<br />Select preferred course date:<br />
 		<select name="course">
+		    <option selected value=-1>No Preferred Date</option>
 		<c:forEach items="${coursesList}" var="course">
 			<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
 		</c:forEach>

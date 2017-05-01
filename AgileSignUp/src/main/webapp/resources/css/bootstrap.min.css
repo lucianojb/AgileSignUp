@@ -7406,5 +7406,24 @@ button.close {
     margin: 0 auto;
 }
 
+.jumbotron {
+    background-color:black !important; 
+    font
+}
 
+.jumbotron h1{
+	color: white;
+}
+
+.navbar{
+	background-color:black;
+}
+
+.navbar-header {
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+.navbar-brand {float:none;}
 /*# sourceMappingURL=bootstrap.min.css.map */

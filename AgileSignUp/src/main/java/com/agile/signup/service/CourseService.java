@@ -36,4 +36,8 @@ public class CourseService {
 		return courseDao.getCourseById(id);
 	}
 	
+	public List<Course> getCoursesByDate(Date date){
+		return courseDao.getCourseByDate(date);
+	}
+	
 }

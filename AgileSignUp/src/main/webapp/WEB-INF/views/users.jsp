@@ -13,18 +13,29 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/signup/resources/jquery.tablesorter.min.js"></script> 
+
+<script type="text/javascript">
+$(document).ready(function() 
+	    { 
+	        $("#myTable").tablesorter(); 
+	    } 
+	);
+</script>
+
 </head>
 <body>
 
 	<div style="background: black !important" class="jumbotron text-center">
-		<font color="white"> <a href="./"
-			style="color: white; text-decoration: none"><h1>AFS Agile
-					Signup</h1></a>
-			<p>User List</p>
+		<font color="white"> 
+		  <a href="/signup/" style="color: white; text-decoration: none"><h1>AFS Agile Signup</h1></a>
+		  <a href="/signup/users" style="color:white; text-decoration:none"><h6>Users</h6></a>
+  		  <a href="/signup/courses" style="color:white; text-decoration:none"><h6>Courses</h6></a>
+		  <p>User List</p>
 		</font>
 	</div>
 	<div class="container">
-		<table id="myTable" class="table table-striped">
+		<table id="myTable" class="table table-striped tablesorter">
 			<thead class="thead-inverse">
 
 				<tr align="center">

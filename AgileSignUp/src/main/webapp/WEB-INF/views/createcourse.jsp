@@ -24,6 +24,7 @@
   	 </font>
   	 </div>
 	
+	<h4>${validationError}</h4>
 	<center>
 	<form name="myForm" ng-controller="DateController as dateCtrl"
 		method="POST">

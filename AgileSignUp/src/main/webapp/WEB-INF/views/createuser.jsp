@@ -16,6 +16,7 @@
 <title>Create User</title>
 </head>
 <body>
+
 	<div style="background:black !important" class="jumbotron text-center">
 	<font color="white">
   		  <a href="./" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a>
@@ -23,7 +24,6 @@
   	 </font>
   	 </div>
   	 
-
   	<form method="POST">
 	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 	
@@ -83,6 +83,7 @@
 		<div class="form-group">
 		<label for="course">Select preferred course date:</label>
 			<select class="form-control" name="course">
+			<option selected value=-1>No Preferred Date</option>
 				<c:forEach items="${coursesList}" var="course">
 					<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
 				</c:forEach>

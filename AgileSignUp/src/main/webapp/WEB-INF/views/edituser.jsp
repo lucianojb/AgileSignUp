@@ -16,13 +16,13 @@
 		Federal or Contractor?<br />
 		<c:choose>
 			<c:when test="${user.federal}">
-					<input type="radio" name="myradio" value="1" checked="checked"/>Federal
-					<input type="radio" name="myradio" value="2"/>Contractor
+					<input type="radio" name="myradio" value="federal" checked="checked"/>Federal
+					<input type="radio" name="myradio" value="contractor"/>Contractor
 				<br />
 			</c:when>
 			<c:otherwise>
-				<input type="radio" name="myradio" value="1"/>Federal
-				<input type="radio" name="myradio" value="2" checked="checked"/>Contractor
+				<input type="radio" name="myradio" value="federal"/>Federal
+				<input type="radio" name="myradio" value="contractor" checked="checked"/>Contractor
 				<br />
 			</c:otherwise>
 		</c:choose>

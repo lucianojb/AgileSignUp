@@ -46,7 +46,7 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public RedirectView createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
+	public String createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
 			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myRadio") String employeeType,
 			@RequestParam("mySelect") String division, @RequestParam("course") Integer preferredCourseID) {
 		logger.info("Create a new user POST");
@@ -54,8 +54,7 @@ public class RegisterController {
 		if(submit.equals("cancel")){
 			logger.info("Cancelling request to create user");
 			
-			RedirectView rview = new RedirectView("./");
-			return rview;
+			return "redirect:./";
 		}
 		
 		User user = createUserFromStrings(fname, lname, email, employeeType, division);
@@ -63,8 +62,7 @@ public class RegisterController {
 		
 		userService.createOrUpdateUser(user);
 		
-		RedirectView rview = new RedirectView("./");
-		return rview;
+		return "redirect:./";
 	}
 	
 	

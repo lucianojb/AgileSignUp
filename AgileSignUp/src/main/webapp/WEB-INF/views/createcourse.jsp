@@ -28,6 +28,7 @@
 	<center>
 	<form name="myForm" ng-controller="DateController as dateCtrl"
 		method="POST">
+		<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 		<label for="exampleInput">Pick a date for the course:</label> 
 		<input type="date" id="pickedDate" name="pickedDate" style= "text-align: center" placeholder="yyyy-MM-dd" required />
 		<button type="submit" class="btn btn-success btn-center">Create new course!</button>

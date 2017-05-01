@@ -1,5 +1,6 @@
 package com.agile.signup.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -53,5 +54,13 @@ public class CourseDaoImpl implements CourseDao{
 				.createQuery("from Course where courseid = :courseidentity", Course.class)
 				.setParameter("courseidentity", id)
 				.getSingleResult();
+	}
+	
+	@Override
+	public List<Course> getCourseByDate(Date date) {
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from Course where coursedate = :date", Course.class)
+				.setParameter("date", date)
+				.getResultList();
 	}
 }

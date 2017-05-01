@@ -29,7 +29,7 @@
 		</c:forEach>
 		</select>
 		<br />
-		<button type="submit" name="submit" value="create">Create</button>
+		<button type="submit" name="submit" value="create">Register</button>
 		<button type="submit" name="submit" value="cancel">Cancel</button>
 	</form>
 </body>

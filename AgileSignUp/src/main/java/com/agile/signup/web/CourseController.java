@@ -72,7 +72,28 @@ public class CourseController {
 		try {
 			dateObject = sdf.parse(date);
 		} catch (ParseException e) {
-			return new RedirectView("createcourse");
+			RedirectView rview = new RedirectView();
+			rview.setUrl("createcourse");
+			rview.addStaticAttribute("errorMessage", "Error creating course with selected date.");
+			return rview;
+		}
+		
+		Date currentDate = new Date();
+		
+		if(dateObject.before(currentDate)){
+			logger.info("in hereeee");
+			RedirectView rview = new RedirectView();
+			rview.setUrl("createcourse");
+			rview.addStaticAttribute("errorMessage", "Cannot create a course in the past.");
+			return rview;
+		}
+		
+		List<Course> coursesOnDate = courseService.getCoursesByDate(dateObject);
+		if(!coursesOnDate.isEmpty()){
+			RedirectView rview = new RedirectView();
+			rview.setUrl("createcourse");
+			rview.addStaticAttribute("errorMessage", "Course on this date already exists!");
+			return rview;
 		}
 		
 		courseService.createNewCourse(dateObject);

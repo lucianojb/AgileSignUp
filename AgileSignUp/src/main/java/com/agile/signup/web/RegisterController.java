@@ -47,8 +47,8 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
-			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myRadio") String employeeType,
-			@RequestParam("mySelect") String division, @RequestParam("course") Integer preferredCourseID) {
+			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("fed") String employeeType,
+			@RequestParam("mySelect") String division, @RequestParam(name = "course", required=false) Integer preferredCourseID) {
 		logger.info("Create a new user POST");
 		
 		if(submit.equals("cancel")){

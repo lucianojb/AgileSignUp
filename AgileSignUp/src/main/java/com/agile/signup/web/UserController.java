@@ -67,8 +67,8 @@ public class UserController {
 	
 	@RequestMapping(value = "/edituser/{id}", method = RequestMethod.POST)
 	public String editUserPost(@PathVariable("id") int id, Model model, @RequestParam("firstName") String fname,
-			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("myradio") String employeeType,
-			@RequestParam("myselect") String division, @RequestParam("submit")String submit){
+			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("fed") String employeeType,
+			@RequestParam("mySelect") String division, @RequestParam("submit")String submit){
 		logger.info("Editing User {} POST", id);
 		
 		if(submit.equals("cancel")){

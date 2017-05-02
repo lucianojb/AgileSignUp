@@ -7437,4 +7437,10 @@ button.close {
     display: block !important;
     text-align: center !important;
 }
+
+h3 {
+	text-align: center;
+    text-decoration: underline;
+    font-size: 36px !important;
+}
 /*# sourceMappingURL=bootstrap.min.css.map */

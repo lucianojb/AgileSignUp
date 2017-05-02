@@ -115,7 +115,7 @@ public class CourseController {
 	}
 	
 	@RequestMapping(value = "/createcourse", method = RequestMethod.GET)
-	public String createCourseGet(Model model, Course course) {
+	public String createCourseGet(Model model) {
 		logger.info("GET create course");
 		
 		return "createcourse";

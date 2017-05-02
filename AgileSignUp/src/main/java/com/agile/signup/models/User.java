@@ -22,7 +22,6 @@ public class User {
 	private int userID;
 	
 	@Column(name="firstname")
-	@Size(min=2, max=30)
 	private String firstName;
 	
 	@Column(name="lastname")

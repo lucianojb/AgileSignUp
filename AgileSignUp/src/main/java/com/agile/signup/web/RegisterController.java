@@ -45,24 +45,24 @@ public class RegisterController {
 		return "createuser";
 	}
 	
+	@RequestMapping(value = "/registersuccess", method = RequestMethod.GET)
+	public String success(Model model) {
+		return "registersuccess";
+	
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String createUser(Model model, @RequestParam("submit") String submit, @RequestParam("firstName") String fname,
 			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("fed") String employeeType,
 			@RequestParam("mySelect") String division, @RequestParam(name = "course", required=false) Integer preferredCourseID) {
 		logger.info("Create a new user POST");
-		
-		if(submit.equals("cancel")){
-			logger.info("Cancelling request to create user");
-			
-			return "redirect:./";
-		}
-		
+				
 		User user = createUserFromStrings(fname, lname, email, employeeType, division);
 		user.setPreferredCourseID(preferredCourseID);
 		
 		userService.createOrUpdateUser(user);
 		
-		return "redirect:./";
+		return "redirect:./registersuccess";
 	}
 	
 	

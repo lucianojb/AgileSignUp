@@ -16,7 +16,7 @@
 	<jsp:include page="adminheader.jsp" />
 	
 	
-	<div class = "containter">
+	<div class = "container">
 		<div class = "row">
 			<div class = "col-sm-3 col-centered">	
 				<h3>Course Selection:</h3>

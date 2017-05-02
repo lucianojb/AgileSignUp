@@ -85,12 +85,8 @@
 		</div>
 		
 		<div class = "row">
-			<div class = "col-sm-2 col-sm-offset-4">
+			<div class = "col-sm-2 col-centered">
 				<button type="submit" class="btn btn-success btn-block" name="submit" value="create">Register</button>
-			</div>
-		
-			<div class = "col-sm-2">
-				<button type="submit" class="btn btn-block" name="submit" value="cancel">Cancel</button>
 			</div>
 		</div>
 			

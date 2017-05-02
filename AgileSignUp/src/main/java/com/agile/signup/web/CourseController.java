@@ -68,7 +68,7 @@ public class CourseController {
 		logger.info("POST create course");
 		
 		logger.info("Date is {}", date);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Date dateObject = new Date();
 		try {
 			dateObject = sdf.parse(date);
@@ -80,13 +80,13 @@ public class CourseController {
 		Date currentDate = new Date();
 		
 		if(dateObject.before(currentDate)){
-			redirectAttributes.addFlashAttribute("errorMessage", "Cannot create a course in the past.");
+			redirectAttributes.addFlashAttribute("errorMessage", "Error! Cannot create a course in the past. Please select a new course date.");
 			return "redirect:createcourse";
 		}
 		
 		List<Course> coursesOnDate = courseService.getCoursesByDate(dateObject);
 		if(!coursesOnDate.isEmpty()){
-			redirectAttributes.addFlashAttribute("errorMessage", "Course on this date already exists!");
+			redirectAttributes.addFlashAttribute("errorMessage", "Error! Course on this date already exists! Please select a new course date");
 			return "redirect:createcourse";
 		}
 		

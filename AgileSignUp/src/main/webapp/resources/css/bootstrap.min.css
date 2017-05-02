@@ -7428,4 +7428,13 @@ button.close {
 .navbar-brand {float:none;}
 
 .top-buffer { margin-top:20px; }
+
+.form-control {
+ text-align: center !important;
+}
+
+.control-label {
+    display: block !important;
+    text-align: center !important;
+}
 /*# sourceMappingURL=bootstrap.min.css.map */

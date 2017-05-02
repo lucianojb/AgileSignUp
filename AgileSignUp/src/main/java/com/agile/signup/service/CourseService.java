@@ -39,5 +39,9 @@ public class CourseService {
 	public List<Course> getCoursesByDate(Date date){
 		return courseDao.getCourseByDate(date);
 	}
+
+	public boolean removeCourseById(int id) {
+		return courseDao.removeById(id);
+	}
 	
 }

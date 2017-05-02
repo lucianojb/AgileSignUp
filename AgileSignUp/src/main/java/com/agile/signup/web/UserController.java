@@ -47,6 +47,48 @@ public class UserController {
 		return "users";
 	}
 	
+	@RequestMapping(value = "/deleteuser/{id}", method = RequestMethod.GET)
+	public String deleteUserGet(Model model, @PathVariable("id") int id) {
+		logger.info("Getting page to delete user {}", id);
+		
+		User user = userService.getUserById(id);
+		if(user == null){
+			model.addAttribute("errorMessage", "Could not find user to delete");
+			return "error";
+		}
+		
+		model.addAttribute("user", user);
+						
+		return "deleteuser";
+	}
+	
+	@RequestMapping(value = "/deleteuser/{id}", method = RequestMethod.POST)
+	public String deleteUser(Model model,  @PathVariable("id") int id, @RequestParam(name="submit", required=true)String submit) {
+		logger.info("Deleting user {}!", id);
+		
+		if(submit.equals("delete")){
+			//get user
+			User user = userService.getUserById(id);
+			if(user == null){
+				model.addAttribute("errorMessage", "Could not find user to delete");
+				return "redirect:../error";
+			}
+			//remove from course if courseID != null
+			if(user.getCourseID() != null){
+				Course course = courseService.getCourseById(user.getCourseID());
+				if(course != null){
+					logger.info("Removing user {} from course {}", user, course);
+					removeAttendeeFromCourse(course, user);
+				}
+			}
+			//remove user	
+			userService.removeUserById(id);
+		}
+		
+						
+		return "redirect:../users";
+	}
+	
 	@RequestMapping(value = "/edituser/{id}", method = RequestMethod.GET)
 	public String editUserGet(@PathVariable("id") int id, Model model) {
 		logger.info("Editing User {} GET", id);

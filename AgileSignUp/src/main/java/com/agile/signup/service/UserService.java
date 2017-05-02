@@ -27,6 +27,10 @@ public class UserService {
 	public List<User> getUsersByCourseId(int courseID) {
 		return userDao.getUsersByCourseId(courseID);
 	}
+
+	public boolean removeUserById(int id) {
+		return userDao.remove(id);
+	}
 	
 	
 

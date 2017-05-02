@@ -59,6 +59,55 @@ public class CourseController {
 		return "courses";
 	}	
 	
+	@RequestMapping(value = "/completecourse/{id}", method = RequestMethod.GET)
+	public String deleteUserGet(Model model, @PathVariable("id") int id) {
+		logger.info("Getting page to complete course {}", id);
+		
+		Course course = courseService.getCourseById(id);
+		if(course == null){
+			model.addAttribute("errorMessage", "Could not find course");
+			return "error";
+		}
+		
+		model.addAttribute("course", course);
+						
+		return "completecourse";
+	}
+	
+	@RequestMapping(value = "/completecourse/{id}", method = RequestMethod.POST)
+	public String deleteUser(Model model,  @PathVariable("id") int id, @RequestParam(name="submit", required=true)String submit) {
+		logger.info("Posting for complete course {}!", id);
+		
+		Course course = courseService.getCourseById(id);
+		if(course == null){
+			model.addAttribute("errorMessage", "Could not find course to delete");
+			return "redirect:../error";
+		}
+		
+		if(submit.equals("complete")){
+			logger.info("Completing course");
+			
+			List<User> usersEnrolled = userService.getUsersByCourseId(id);
+			for(User user: usersEnrolled){
+				userService.removeUserById(user.getUserID());
+			}
+			
+			courseService.removeCourseById(id);
+		}else if(submit.equals("delete")){
+			logger.info("Deleting course");
+			
+			List<User> usersEnrolled = userService.getUsersByCourseId(id);
+			for(User user: usersEnrolled){
+				user.setCourseID(null);
+				userService.createOrUpdateUser(user);
+			}
+			
+			courseService.removeCourseById(id);
+		}
+						
+		return "redirect:../courses";
+	}
+	
 	@RequestMapping(value = "/createcourse", method = RequestMethod.GET)
 	public String createCourseGet(Model model, Course course) {
 		logger.info("GET create course");

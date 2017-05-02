@@ -8,12 +8,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +60,7 @@ public class CourseController {
 	}	
 	
 	@RequestMapping(value = "/createcourse", method = RequestMethod.GET)
-	public String createCourseGet(Model model) {
+	public String createCourseGet(Model model, Course course) {
 		logger.info("GET create course");
 		
 		return "createcourse";
@@ -91,9 +94,6 @@ public class CourseController {
 		}
 		
 		courseService.createNewCourse(dateObject);
-						
-		RedirectView rview = new RedirectView();
-		rview.setUrl("courses");
 		
 		return "redirect:courses";
 	}

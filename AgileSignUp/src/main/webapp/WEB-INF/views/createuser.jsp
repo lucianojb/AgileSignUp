@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,29 +11,29 @@
 <title>Create User</title>
 </head>
 <body>
-	<form method="POST">
+	<sf:form method="POST" commandName="user">
 		<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
-		<b>First Name</b><input type="text" name="firstName"/><br />
-		<b>Last Name</b><input type="text" name="lastName"/><br />
-		<b>Email</b><input type="text" name="email"/><br /> 
+		<b>First Name</b><sf:input type="text" name="firstName" path="firstName"/><br />
+		<b>Last Name</b><sf:input type="text" name="lastName" path="lastName"/><br />
+		<b>Email</b><sf:input type="text" name="email" path="email"/><br /> 
 		<b>Federal or Contractor?</b><br /> 
-		<input type="radio" name="myRadio" value="federal"checked="checked" />Federal 
-		<input type="radio" name="myRadio" value="contractor" />Contractor <br />
-		<select name="mySelect">
+		<sf:radiobutton name="myRadio" checked="checked" path="federal"/>Federal 
+		<sf:radiobutton name="myRadio" path="federal"/>Contractor <br />
+		<sf:select name="mySelect" path="division">
 			<c:forEach items="${divisions}" var="division">
-				<option value="${division}">${division}</option>
+				<sf:option value="${division}" path="division">${division}</sf:option>
 			</c:forEach>
-		</select>
+		</sf:select>
 		<br />Select preferred course date:<br />
-		<select name="course">
-		    <option selected value=-1>No Preferred Date</option>
+		<sf:select name="course" path="preferredCourseID">
+		    <sf:option selected="selected" value="-1" path="preferredCourseID">No Preferred Date</sf:option>
 		<c:forEach items="${coursesList}" var="course">
-			<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
+			<sf:option value="${course.courseID}" path="preferredCourseID"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></sf:option>
 		</c:forEach>
-		</select>
+		</sf:select>
 		<br />
 		<button type="submit" name="submit" value="create">Register</button>
 		<button type="submit" name="submit" value="cancel">Cancel</button>
-	</form>
+	</sf:form>
 </body>
 </html>

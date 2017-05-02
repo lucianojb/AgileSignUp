@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,8 +20,8 @@
 <body>
 	<div style="background:black !important" class="jumbotron text-center">
 	<font color="white">
-  		  <a href="./" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a>
-  		<p>Course List</p> 
+  		  <a href="./" style= "color:white; text-decoration:none">AFS Agile Signup</a>
+  		Course List
   	 </font>
   	 </div>
 	
@@ -30,7 +31,7 @@
 		method="POST">
 		<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 		<label for="exampleInput">Pick a date for the course:</label> 
-		<input type="date" id="pickedDate" name="pickedDate" style= "text-align: center" placeholder="yyyy-MM-dd" required />
+			<input type="date" id="pickedDate" name="pickedDate" style= "text-align: center" placeholder="yyyy-MM-dd" required />
 		<button type="submit" class="btn btn-success btn-center">Create new course!</button>
 	</form>
 

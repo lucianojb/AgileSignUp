@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,9 +17,10 @@
 <title>Create User</title>
 </head>
 <body>
+
 	<jsp:include page="header.jsp" /> 	 
 	
-  	<form method="POST">
+  	<sf:form method="POST" commandName="user">
 	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 	
   	<div class="container">
@@ -26,14 +28,14 @@
   			<div class="col-sm-3 col-sm-offset-3">	
   				<div class="form-group">
 					<label for="firstName">First Name</label>
-			 		<input class="form-control" id="firstName" name="firstName" type="text" />
+			 		<sf:input class="form-control" id="firstName" name="firstName" path="firstName" type="text" />
 				</div>
 			</div>
 		
 			<div class="col-sm-3">	
 				<div class="form-group">
 					<label for="lastName">Last Name</label>
-			 		<input class="form-control" id="lastName" name="lastName" type="text" />
+			 		<sf:input class="form-control" id="lastName" name="lastName" path="lastName" type="text" />
 				</div>
 			</div>
 		</div>
@@ -42,7 +44,7 @@
 			<div class="col-sm-6 col-centered">	
 				<div class="form-group">
 					<label for="email">Email</label>
-			 		<input class="form-control" id="email" name="email" type="text" />
+			 		<sf:input class="form-control" id="email" name="email" path="email" type="text" />
 				</div>
 			</div>
 		</div>
@@ -51,21 +53,21 @@
 			<div class="col-sm-3 col-sm-offset-3">
 		  		<div class="form-group">
 		  			<label for="fed">Federal or Contractor</label>
-					<select class="form-control" name="fed" id="fed">
-						<option value="federal" > Federal</option>
-						<option value="contractor"> Contractor</option>
-					</select>
+					<sf:select class="form-control" name="fed" id="fed" path="federal">
+						<sf:option value="true" path="federal"> Federal</sf:option>
+						<sf:option value="false" path="federal"> Contractor</sf:option>
+					</sf:select>
 				</div>
 			</div>
 	
 			<div class="col-sm-3">
 				<div class="form-group">
 					<label for="mySelect">Division</label>
-						<select class="form-control" name="mySelect" id="mySelect">
+						<sf:select class="form-control" name="mySelect" id="mySelect" path="division">
 						<c:forEach items="${divisions}" var="division">
-							<option value="${division}">${division}</option>
+							<sf:option value="${division}" path="division">${division}</sf:option>
 						</c:forEach>
-						</select>
+						</sf:select>
 				</div>
 			</div>
 		</div>
@@ -74,12 +76,12 @@
 			<div class="col-sm-6 col-centered">	
 				<div class="form-group">
 					<label for="course">Select preferred course date:</label>
-						<select class="form-control" name="course">
-							<option selected value=-1>No Preferred Date</option>
+						<sf:select class="form-control" name="course" path="preferredCourseID">
+							<sf:option selected="selected" value="-1" path="preferredCourseID">No Preferred Date</sf:option>
 						<c:forEach items="${coursesList}" var="course">
-							<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></option>
+							<sf:option value="${course.courseID}" path="preferredCourseID"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></sf:option>
 						</c:forEach>
-						</select>
+						</sf:select>
 				</div>
 			</div>
 		</div>
@@ -95,6 +97,6 @@
 		</div>
 			
 	</div>
-	</form>
+	</sf:form>
 </body>
 </html>

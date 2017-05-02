@@ -63,4 +63,12 @@ public class CourseDaoImpl implements CourseDao{
 				.setParameter("date", date)
 				.getResultList();
 	}
+
+	@Override
+	public boolean removeById(int id) {
+		sessionFactory.getCurrentSession().createQuery("DELETE from Course where courseid = :givenid")
+		.setParameter("givenid", id).executeUpdate();
+		
+		return true;
+	}
 }

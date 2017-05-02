@@ -51,4 +51,19 @@ public class UserDaoImpl implements UserDao{
 				.createQuery("from User where courseid = :courseidentify order by lastname", User.class)
 				.setParameter("courseidentify", courseID).getResultList();
 	}
+
+	@Override
+	public boolean remove(int id) {
+		sessionFactory.getCurrentSession().createQuery("DELETE from User where userid = :givenid")
+		.setParameter("givenid", id).executeUpdate();
+		
+		return true;
+	}
+
+	@Override
+	public List<User> getUsersByPreferredCourseId(int id) {
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from User where preferredcourse = :courseidentify order by lastname", User.class)
+				.setParameter("courseidentify", id).getResultList();
+	}
 }

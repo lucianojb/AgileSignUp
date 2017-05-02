@@ -67,6 +67,8 @@ $(document).ready(function()
 								Course</a>
 						<td align="center"><a
 							href="<c:url value='/edituser/${user.userID}' />">Edit</a>
+						<td align="center"><a
+							href="<c:url value='/deleteuser/${user.userID}' />">Delete</a>
 					</tr>
 				</c:forEach>
 			</tbody>

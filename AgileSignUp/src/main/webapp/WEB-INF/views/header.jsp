@@ -1,7 +1,7 @@
-
-	<div style="background:black !important" class="jumbotron text-center">
-	<font color="white">
-  		  <a href="./" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a>
-  		<p>Course List</p> 
-  	 </font>
-  	 </div>
+<nav class="navbar navbar-inverse navbar-center">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="./register">AFS TSA Agile Registration</a>
+    </div>
+  </div>
+</nav>

@@ -3,30 +3,27 @@
 <html>
 <head>
 	<title>Agile SignUp</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div style="background:black !important" class="jumbotron text-center">
-	<font color="white">
-  		  <a href="/signup/" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a> 
-  		  <a href="/signup/users" style="color:white; text-decoration:none"><h6>Users</h6></a>
-  		  <a href="/signup/courses" style="color:white; text-decoration:none"><h6>Courses</h6></a>
-  	 </font>
-  	 </div>
-
-<center>	
-
-<div class="row">
-  <div class="col-sm-6">
-  <h1> Edit Users</h1>
-  <a href="./users">Edit and assign users to courses</a><br/>
-  </div>
-  <div class="col-sm-6">
-  <h1> Edit Courses </h1>
-  <a href="./courses">View courses and generate email lists</a><br/></div>
+	<jsp:include page="adminheader.jsp" /> 	
+<div class = "container">
+	<div class="row">
+  		<div class="col-sm-3 col-sm-offset-3">
+  			<h1 class="text-center">Edit Users</h1>
+			<p class = "text-center"> View and edit users, as well as reassign the course they
+			are currently enrolled in.</p>
+  			<a href="./users" class="btn btn-info btn-block" role="button">See Users</a>
+  		</div>
+  		<div class="col-sm-3">
+  			<h1 class="text-center"> Edit Courses </h1>
+  			<p class = "text-center"> See and edit course dates, see attendees, and create new
+  			course dates.</p>
+  			<a href="./courses" class="btn btn-info btn-block" role="button">See Courses</a>
+		</div>
+	</div>
 </div>
-</center>
 </body>
 </html>

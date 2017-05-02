@@ -113,6 +113,7 @@ public class UserController {
 		
 		if(user.getCourseID() != null){
 			model.addAttribute("memberOfCourse", user.getCourseID());
+			model.addAttribute("enrolledCourseDate", courseService.getCourseById(user.getCourseID()).getCourseDate());
 		}
 		
 		model.addAttribute("user", user);	

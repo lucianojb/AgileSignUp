@@ -7406,5 +7406,41 @@ button.close {
     margin: 0 auto;
 }
 
+.jumbotron {
+    background-color:black !important; 
+    font
+}
 
+.jumbotron h1{
+	color: white;
+}
+
+.navbar{
+	background-color:black;
+}
+
+.navbar-header {
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+.navbar-brand {float:none;}
+
+.top-buffer { margin-top:20px; }
+
+.form-control {
+ text-align: center !important;
+}
+
+.control-label {
+    display: block !important;
+    text-align: center !important;
+}
+
+h3 {
+	text-align: center;
+    text-decoration: underline;
+    font-size: 36px !important;
+}
 /*# sourceMappingURL=bootstrap.min.css.map */

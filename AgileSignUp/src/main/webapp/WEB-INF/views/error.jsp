@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Something bad happened and it was probably Blake's fault :/</h1>
+	<h1>Something bad happened...</h1>
 	
 	<h3>${errorMessage}</h3>
 	

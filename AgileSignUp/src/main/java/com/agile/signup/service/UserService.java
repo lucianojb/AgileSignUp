@@ -31,6 +31,10 @@ public class UserService {
 	public boolean removeUserById(int id) {
 		return userDao.remove(id);
 	}
+
+	public List<User> getUsersByPreferredCourseId(int id) {
+		return userDao.getUsersByPreferredCourseId(id);
+	}
 	
 	
 

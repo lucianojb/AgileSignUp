@@ -59,4 +59,11 @@ public class UserDaoImpl implements UserDao{
 		
 		return true;
 	}
+
+	@Override
+	public List<User> getUsersByPreferredCourseId(int id) {
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from User where preferredcourse = :courseidentify order by lastname", User.class)
+				.setParameter("courseidentify", id).getResultList();
+	}
 }

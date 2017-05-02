@@ -8,8 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Courses</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/signup/resources/jquery.tablesorter.min.js"></script> 
 
@@ -22,30 +22,25 @@ $(document).ready(function()
 </script>
 </head>
 <body>
-	<div style="background:black !important" class="jumbotron text-center">
-	<font color="white">
-  		  <a href="/signup/" style= "color:white; text-decoration:none"><h1>AFS Agile Signup</h1></a>
-  		  <a href="/signup/users" style="color:white; text-decoration:none"><h6>Users</h6></a>
-  		  <a href="/signup/courses" style="color:white; text-decoration:none"><h6>Courses</h6></a>
-  		<p>Course List</p> 
-  	 </font>
-  	 </div>
-  	 <center>
-	<a href="./createcourse "button type="button" class="btn btn-success btn-center">Create New Course</a>
-	</center>
+	<jsp:include page="adminheader.jsp" /> 		
 	<div class="container">
-	<table id="myTable"
-				class="table table-striped tablesorter">
+		<div class = "row">
+			<div class = "col-sm-3 col-centered">
+			<a href="./createcourse" type="button" class="btn btn-success btn-block">Create New Course</a>
+			</div>
+		</div>
+		
+		<div class="row top-buffer">
+			<div class = "col-sm-8 col-centered">
+				<table id="myTable" class="table table-striped tablesorter">
 				<thead class="thead-inverse">
-
 					<tr>
 						<th style="text-align: center">Course Date</th>
 						<th style="text-align: center">Number Attendees</th>
 						<th style="text-align: center">Available?</th>
 					</tr>
 				</thead>
-
-
+				
 				<tbody>
 					<c:forEach items="${courseData}" var="course">
 						<tr>
@@ -64,9 +59,9 @@ $(document).ready(function()
 						</tr>
 					</c:forEach>
 				</tbody>
-
-			</table>
-			</div>
-
+				</table>
+			</div>		
+		</div>
+	</div>
 </body>
 </html>

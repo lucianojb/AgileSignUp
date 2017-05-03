@@ -8,12 +8,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,6 +59,61 @@ public class CourseController {
 		return "courses";
 	}	
 	
+	@RequestMapping(value = "/completecourse/{id}", method = RequestMethod.GET)
+	public String deleteUserGet(Model model, @PathVariable("id") int id) {
+		logger.info("Getting page to complete course {}", id);
+		
+		Course course = courseService.getCourseById(id);
+		if(course == null){
+			model.addAttribute("errorMessage", "Could not find course");
+			return "error";
+		}
+		
+		model.addAttribute("course", course);
+						
+		return "completecourse";
+	}
+	
+	@RequestMapping(value = "/completecourse/{id}", method = RequestMethod.POST)
+	public String deleteUser(Model model,  @PathVariable("id") int id, @RequestParam(name="submit", required=true)String submit) {
+		logger.info("Posting for complete course {}!", id);
+		
+		Course course = courseService.getCourseById(id);
+		if(course == null){
+			model.addAttribute("errorMessage", "Could not find course to delete");
+			return "redirect:../error";
+		}
+		
+		if(submit.equals("complete")){
+			logger.info("Completing course");
+			
+			List<User> usersEnrolled = userService.getUsersByCourseId(id);
+			for(User user: usersEnrolled){
+				userService.removeUserById(user.getUserID());
+			}
+			
+			courseService.removeCourseById(id);
+		}else if(submit.equals("delete")){
+			logger.info("Deleting course");
+			
+			List<User> usersEnrolled = userService.getUsersByCourseId(id);
+			for(User user: usersEnrolled){
+				user.setCourseID(null);
+				userService.createOrUpdateUser(user);
+			}
+			
+			List<User> usersPreferred = userService.getUsersByPreferredCourseId(id);
+			for(User user: usersPreferred){
+				user.setPreferredCourseID(-1);
+				userService.createOrUpdateUser(user);
+			}
+			
+			courseService.removeCourseById(id);
+		}
+						
+		return "redirect:../courses";
+	}
+	
 	@RequestMapping(value = "/createcourse", method = RequestMethod.GET)
 	public String createCourseGet(Model model) {
 		logger.info("GET create course");
@@ -91,20 +149,17 @@ public class CourseController {
 		}
 		
 		courseService.createNewCourse(dateObject);
-						
-		RedirectView rview = new RedirectView();
-		rview.setUrl("courses");
 		
 		return "redirect:courses";
 	}
 	
 	@RequestMapping(value = "/attendeeslist/{id}", method = RequestMethod.GET)
-	public String getAttendees(Model model, @PathVariable("id") String courseID){
+	public String getAttendees(Model model, @PathVariable("id") String courseID, RedirectAttributes redirectAttribute){
 		
 		Course course = courseService.getCourseById(Integer.parseInt(courseID));
 		if(course.getNumberAttendees() == 0){
-			model.addAttribute("errorMessage", "No peoples to view here");
-			return "error";
+			redirectAttribute.addFlashAttribute("errorMessage", "No people in course to generate email list");
+			return "redirect:../error";
 		}
 		
 		List<User> users = userService.getUsersByCourseId(course.getCourseID());
@@ -116,6 +171,60 @@ public class CourseController {
 		model.addAttribute("emailList", emails);
 		
 		return "attendeeslist";
+	}
+	
+	@RequestMapping(value = "/assigntocourse/{id}", method = RequestMethod.GET)
+	public String assignUsersToCourse(Model model, @PathVariable("id") int id) {
+		logger.info("Getting mass assign page {}", id);
+		
+		Course course = courseService.getCourseById(id);
+		List<User> users = userService.getAllUsers();
+		
+		model.addAttribute("course", course);
+		model.addAttribute("userList", users);
+						
+		return "assigntocourse";
+	}
+	
+	@RequestMapping(value = "/assigntocourse/{id}", method = RequestMethod.POST)
+	public String assignUsersToCourse(Model model,  @PathVariable("id") int id, @RequestParam(name="submit", required=true)String submit,
+			@RequestParam(name="checkbox", required=false)List<Integer> newUsersAssigned, RedirectAttributes redirectAttribute) {
+		logger.info("Posting mass assign for {}", id);
+		
+		if(newUsersAssigned != null && newUsersAssigned.size() > courseService.getMaxNumberAttendees()){
+			redirectAttribute.addFlashAttribute("errorMessage", "Number of selected users exceeds max number of attendees per course");
+			return "redirect:../error";
+		}
+		
+		if(submit.equals("save")){			
+			Course course = courseService.getCourseById(id);
+			
+			List<User> newUsers = new LinkedList<User>();
+			if(newUsersAssigned != null){
+				for(Integer userID: newUsersAssigned){
+					newUsers.add(userService.getUserById(userID));
+				}
+			}
+			
+			List<User> usersPreviouslyAssigned = userService.getUsersByCourseId(id);
+			for(User user: usersPreviouslyAssigned){
+				if(!newUsers.contains(user)){
+					courseService.removeAttendeeFromCourse(course, user, userService);
+				}
+			}
+			
+			for(User user: newUsers){
+				if(user.getCourseID() != null && user.getCourseID() != id){
+					courseService.removeAttendeeFromCourse(courseService.getCourseById(user.getCourseID()), user, userService);
+					courseService.addAttendeeToCourse(course, user, userService);
+				}else if(user.getCourseID() == null){
+					courseService.addAttendeeToCourse(course, user, userService);
+				}
+			}
+			
+		}
+						
+		return "redirect:../courses";
 	}
 }
 

@@ -11,4 +11,5 @@ public interface CourseDao {
 	public List<Course> getAvailableCourses();
 	public Course getCourseById(int id);
 	public List<Course> getCourseByDate(Date date);
+	public boolean removeById(int id);
 }

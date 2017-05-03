@@ -11,24 +11,19 @@
 <title>Registration Success</title>
 </head>
 <body>
-	<jsp:include page="header.jsp" /> 
-	
+	<jsp:include page="header.jsp" /> 	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3 col-centered">
 				<h1 style="text-align:center">Succesfully Registered</h1>
-	
-	
-				<a href="./register" type="button" class="btn btn-success btn-block">Return to Register Page</a>
-			
 			</div>
-		
 		</div>
-	
-	
+		
+		<div class="row top-buffer">
+			<div class="col-sm-3 col-centered">
+				<a href="./register" type="button" class="btn btn-success btn-block">Return to Register Page</a>
+			</div>
+		</div>	
 	</div>
-	
-
-
 </body>
 </html>

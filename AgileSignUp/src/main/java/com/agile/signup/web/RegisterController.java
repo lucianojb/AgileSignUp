@@ -51,14 +51,14 @@ public class RegisterController {
 	public String createUser(Model model, @Valid User user, BindingResult bindingResult, @RequestParam("submit")String submit){
 		logger.info("Create a new user POST");
 		
-		if(submit.equals("cancel")){
-			logger.info("Cancelling request to create user");
-			
-			return "redirect:./";
-		}
-		
 		userService.createOrUpdateUser(user);
 		
-		return "redirect:./";
+		return "redirect:./registersuccess";
 	}	
+	
+	@RequestMapping(value = "/registersuccess", method = RequestMethod.GET)
+	public String registersuccess(Model model) {
+		return "registersuccess";
+	}
+	
 }

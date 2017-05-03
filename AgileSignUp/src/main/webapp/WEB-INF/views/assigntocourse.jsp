@@ -17,10 +17,10 @@
 	<c:forEach items="${userList}" var="user">
 			<c:choose>
 			<c:when test="${user.courseID eq course.courseID}">
-				<input type="checkbox" value="${user.userID}" checked>${user.firstName} ${user.lastName}</input>
+				<input type="checkbox" name="checkbox" value="${user.userID}" checked>${user.firstName} ${user.lastName}
 			</c:when>
 			<c:otherwise>
-				<input type="checkbox" value="${user.userID}">${user.firstName} ${user.lastName}</input>
+				<input type="checkbox" name="checkbox" value="${user.userID}">${user.firstName} ${user.lastName}
 			</c:otherwise>
 			</c:choose>
     </c:forEach>

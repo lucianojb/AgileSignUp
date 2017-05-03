@@ -32,9 +32,7 @@ public class UserController {
 	
 	@Autowired
 	CourseService courseService;
-	
-	private static final int MAX_NUMBER_ATTENDEES = 28;
-	
+		
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -78,7 +76,7 @@ public class UserController {
 				Course course = courseService.getCourseById(user.getCourseID());
 				if(course != null){
 					logger.info("Removing user {} from course {}", user, course);
-					removeAttendeeFromCourse(course, user);
+					courseService.removeAttendeeFromCourse(course, user, userService);
 				}
 			}
 			//remove user	
@@ -185,7 +183,7 @@ public class UserController {
 		if(submit.equals("remove")){
 			if(user.getCourseID() != null){
 				course = courseService.getCourseById(user.getCourseID());
-				removeAttendeeFromCourse(course, user);
+				courseService.removeAttendeeFromCourse(course, user, userService);
 			}
 			
 			return "redirect:../users";
@@ -193,36 +191,16 @@ public class UserController {
 		
 		if(user.getCourseID() != null){
 			course = courseService.getCourseById(user.getCourseID());
-			removeAttendeeFromCourse(course, user);
+			courseService.removeAttendeeFromCourse(course, user, userService);
 		}
 		
 		course = courseService.getCourseById(courseID);
-		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
+		if(course.getNumberAttendees() == courseService.getMaxNumberAttendees()){
 			redirectAttributes.addFlashAttribute("errorMessage", "Could not add to course, course was full");
 			return "redirect:../error";
 		}
-		addAttendeeToCourse(course, user);
+		courseService.addAttendeeToCourse(course, user, userService);
 		
 		return "redirect:../users";
-	}
-
-	private void addAttendeeToCourse(Course course, User user) {
-		course.setNumberAttendees(course.getNumberAttendees() + 1);
-		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
-			course.setAvailable(false);
-		}
-		courseService.updateCourse(course);
-		
-		user.setCourseID(course.getCourseID());
-		userService.createOrUpdateUser(user);
-	}
-
-	private void removeAttendeeFromCourse(Course course, User user) {
-		course.setNumberAttendees(course.getNumberAttendees() - 1);
-		course.setAvailable(true);
-		courseService.updateCourse(course);		
-		
-		user.setCourseID(null);
-		userService.createOrUpdateUser(user);
 	}
 }

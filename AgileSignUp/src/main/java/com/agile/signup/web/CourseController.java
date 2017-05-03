@@ -154,12 +154,12 @@ public class CourseController {
 	}
 	
 	@RequestMapping(value = "/attendeeslist/{id}", method = RequestMethod.GET)
-	public String getAttendees(Model model, @PathVariable("id") String courseID){
+	public String getAttendees(Model model, @PathVariable("id") String courseID, RedirectAttributes redirectAttribute){
 		
 		Course course = courseService.getCourseById(Integer.parseInt(courseID));
 		if(course.getNumberAttendees() == 0){
-			model.addAttribute("errorMessage", "No people in course to generate email list");
-			return "error";
+			redirectAttribute.addFlashAttribute("errorMessage", "No people in course to generate email list");
+			return "redirect:../error";
 		}
 		
 		List<User> users = userService.getUsersByCourseId(course.getCourseID());
@@ -187,10 +187,42 @@ public class CourseController {
 	}
 	
 	@RequestMapping(value = "/assigntocourse/{id}", method = RequestMethod.POST)
-	public String assignUsersToCourse(Model model,  @PathVariable("id") int id, @RequestParam(name="submit", required=true)String submit) {
+	public String assignUsersToCourse(Model model,  @PathVariable("id") int id, @RequestParam(name="submit", required=true)String submit,
+			@RequestParam(name="checkbox", required=false)List<Integer> newUsersAssigned, RedirectAttributes redirectAttribute) {
 		logger.info("Posting mass assign for {}", id);
 		
-
+		if(newUsersAssigned != null && newUsersAssigned.size() > courseService.getMaxNumberAttendees()){
+			redirectAttribute.addFlashAttribute("errorMessage", "Number of selected users exceeds max number of attendees per course");
+			return "redirect:../error";
+		}
+		
+		if(submit.equals("save")){			
+			Course course = courseService.getCourseById(id);
+			
+			List<User> newUsers = new LinkedList<User>();
+			if(newUsersAssigned != null){
+				for(Integer userID: newUsersAssigned){
+					newUsers.add(userService.getUserById(userID));
+				}
+			}
+			
+			List<User> usersPreviouslyAssigned = userService.getUsersByCourseId(id);
+			for(User user: usersPreviouslyAssigned){
+				if(!newUsers.contains(user)){
+					courseService.removeAttendeeFromCourse(course, user, userService);
+				}
+			}
+			
+			for(User user: newUsers){
+				if(user.getCourseID() != null && user.getCourseID() != id){
+					courseService.removeAttendeeFromCourse(courseService.getCourseById(user.getCourseID()), user, userService);
+					courseService.addAttendeeToCourse(course, user, userService);
+				}else if(user.getCourseID() == null){
+					courseService.addAttendeeToCourse(course, user, userService);
+				}
+			}
+			
+		}
 						
 		return "redirect:../courses";
 	}

@@ -180,6 +180,10 @@ public class UserController {
 		User user = userService.getUserById(id);
 		Course course;
 		
+		
+		if(submit.equals("cancel")){
+			return "redirect:../users";
+		}
 		if(submit.equals("remove")){
 			if(user.getCourseID() != null){
 				course = courseService.getCourseById(user.getCourseID());

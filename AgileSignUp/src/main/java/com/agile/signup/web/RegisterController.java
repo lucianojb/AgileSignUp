@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.agile.signup.models.Course;
@@ -49,8 +50,24 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String createUser(Model model, @Valid User user, BindingResult bindingResult, @RequestParam("submit")String submit){
+	public String createUser(Model model, @Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes
+			, @RequestParam("submit")String submit){
 		logger.info("Create a new user POST");
+		
+		if(bindingResult.hasErrors()){
+	        redirectAttributes.addFlashAttribute("errors", bindingResult);
+			redirectAttributes.addFlashAttribute("user", user);
+			
+			List<Division> divisionList = Arrays.asList(Division.values());
+			
+			model.addAttribute("divisions", divisionList);
+			
+			List<Course> courseList = courseService.getListOfCourses();
+			
+			model.addAttribute("coursesList", courseList);
+			
+			return "createuser";
+		}
 		
 		if(submit.equals("cancel")){
 			logger.info("Cancelling request to create user");
@@ -58,7 +75,14 @@ public class RegisterController {
 			return "redirect:./";
 		}
 		
-		userService.createOrUpdateUser(user);
+		if(user.getPreferredCourseID() != -1){
+			Course course = courseService.getCourseById(user.getPreferredCourseID());
+			if(course.isAvailable()){
+				courseService.addAttendeeToCourse(course, user, userService);
+			}
+		}else{
+			userService.createOrUpdateUser(user);
+		}
 		
 		return "redirect:./";
 	}	

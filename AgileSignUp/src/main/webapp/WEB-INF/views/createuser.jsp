@@ -29,6 +29,7 @@
   				<div class="form-group">
 					<label for="firstName">First Name</label>
 			 		<sf:input class="form-control" id="firstName" name="firstName" path="firstName" type="text" />
+			 		<sf:errors path="firstName"/>
 				</div>
 			</div>
 		
@@ -36,6 +37,7 @@
 				<div class="form-group">
 					<label for="lastName">Last Name</label>
 			 		<sf:input class="form-control" id="lastName" name="lastName" path="lastName" type="text" />
+			 		<sf:errors path="lastName"/>
 				</div>
 			</div>
 		</div>
@@ -45,6 +47,7 @@
 				<div class="form-group">
 					<label for="email">Email</label>
 			 		<sf:input class="form-control" id="email" name="email" path="email" type="text" />
+			 		<sf:errors path="email"/>
 				</div>
 			</div>
 		</div>

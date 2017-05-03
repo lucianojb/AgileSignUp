@@ -172,5 +172,27 @@ public class CourseController {
 		
 		return "attendeeslist";
 	}
+	
+	@RequestMapping(value = "/assigntocourse/{id}", method = RequestMethod.GET)
+	public String assignUsersToCourse(Model model, @PathVariable("id") int id) {
+		logger.info("Getting mass assign page {}", id);
+		
+		Course course = courseService.getCourseById(id);
+		List<User> users = userService.getAllUsers();
+		
+		model.addAttribute("course", course);
+		model.addAttribute("userList", users);
+						
+		return "assigntocourse";
+	}
+	
+	@RequestMapping(value = "/assigntocourse/{id}", method = RequestMethod.POST)
+	public String assignUsersToCourse(Model model,  @PathVariable("id") int id, @RequestParam(name="submit", required=true)String submit) {
+		logger.info("Posting mass assign for {}", id);
+		
+
+						
+		return "redirect:../courses";
+	}
 }
 

@@ -12,6 +12,7 @@
         <intercept-url pattern="/denied" access="permitAll" />
         <intercept-url pattern="/resources/css/bootstrap.min.css" access="permitAll" />
         <intercept-url pattern="/register" access="permitAll" />
+        <intercept-url pattern="/registersuccess" access="permitAll" />
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
         <form-login login-page="/login" authentication-failure-url="/denied"
         username-parameter="username"

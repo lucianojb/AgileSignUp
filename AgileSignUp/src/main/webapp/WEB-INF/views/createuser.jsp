@@ -28,7 +28,7 @@
   			<div class="col-sm-3 col-sm-offset-3">	
   				<div class="form-group">
 					<label for="firstName">First Name</label>
-			 		<sf:input class="form-control" id="firstName" name="firstName" path="firstName" type="text" />
+			 		<sf:input class="form-control" id="firstName" name="firstName" path="firstName" type="text" required="true" />
 			 		<sf:errors path="firstName"/>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 			<div class="col-sm-3">	
 				<div class="form-group">
 					<label for="lastName">Last Name</label>
-			 		<sf:input class="form-control" id="lastName" name="lastName" path="lastName" type="text" />
+			 		<sf:input class="form-control" id="lastName" name="lastName" path="lastName" type="text" required="true" />
 			 		<sf:errors path="lastName"/>
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 			<div class="col-sm-6 col-centered">	
 				<div class="form-group">
 					<label for="email">Email</label>
-			 		<sf:input class="form-control" id="email" name="email" path="email" type="text" />
+			 		<sf:input class="form-control" id="email" name="email" path="email" type="text" required="true" />
 			 		<sf:errors path="email"/>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 		<div class = "row">
 			<div class="col-sm-3 col-sm-offset-3">
 		  		<div class="form-group">
-		  			<label for="fed">Federal or Contractor</label>
+		  			<label class="control-label" for="fed">Federal or Contractor</label>
 					<sf:select class="form-control" name="fed" id="fed" path="federal">
 						<sf:option value="true" path="federal"> Federal</sf:option>
 						<sf:option value="false" path="federal"> Contractor</sf:option>
@@ -65,7 +65,7 @@
 	
 			<div class="col-sm-3">
 				<div class="form-group">
-					<label for="mySelect">Division</label>
+					<label class="control-label" for="mySelect">Division</label>
 						<sf:select class="form-control" name="mySelect" id="mySelect" path="division">
 						<c:forEach items="${divisions}" var="division">
 							<sf:option value="${division}" path="division">${division}</sf:option>
@@ -78,7 +78,7 @@
 		<div class = "row">
 			<div class="col-sm-6 col-centered">	
 				<div class="form-group">
-					<label for="course">Select preferred course date:</label>
+					<label class="control-label" for="course">Select preferred course date:</label>
 						<sf:select class="form-control" name="course" path="preferredCourseID">
 							<sf:option selected="selected" value="-1" path="preferredCourseID">No Preferred Date</sf:option>
 						<c:forEach items="${coursesList}" var="course">
@@ -90,12 +90,8 @@
 		</div>
 		
 		<div class = "row">
-			<div class = "col-sm-2 col-sm-offset-4">
+			<div class = "col-sm-2 col-centered">
 				<button type="submit" class="btn btn-success btn-block" name="submit" value="create">Register</button>
-			</div>
-		
-			<div class = "col-sm-2">
-				<button type="submit" class="btn btn-block" name="submit" value="cancel">Cancel</button>
 			</div>
 		</div>
 			

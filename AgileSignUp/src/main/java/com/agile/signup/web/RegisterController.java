@@ -1,5 +1,4 @@
 package com.agile.signup.web;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -84,6 +83,12 @@ public class RegisterController {
 			userService.createOrUpdateUser(user);
 		}
 		
-		return "redirect:./";
+		return "redirect:./registersuccess";
 	}	
+	
+	@RequestMapping(value = "/registersuccess", method = RequestMethod.GET)
+	public String registersuccess(Model model) {
+		return "registersuccess";
+	}
+	
 }

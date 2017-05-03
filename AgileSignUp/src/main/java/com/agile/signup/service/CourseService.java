@@ -16,7 +16,7 @@ public class CourseService {
 	@Autowired
 	CourseDao courseDao;
 	
-	private static final int MAX_NUMBER_ATTENDEES = 2;
+	private static final int MAX_NUMBER_ATTENDEES = 28;
 	
 	public int getMaxNumberAttendees(){
 		return MAX_NUMBER_ATTENDEES;

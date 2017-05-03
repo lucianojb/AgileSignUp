@@ -8,12 +8,19 @@ import org.springframework.stereotype.Service;
 
 import com.agile.signup.dao.CourseDao;
 import com.agile.signup.models.Course;
+import com.agile.signup.models.User;
 
 @Service
 public class CourseService {
 
 	@Autowired
 	CourseDao courseDao;
+	
+	private static final int MAX_NUMBER_ATTENDEES = 28;
+	
+	public int getMaxNumberAttendees(){
+		return MAX_NUMBER_ATTENDEES;
+	}
 	
 	public List<Course> getListOfCourses(){
 		return courseDao.getAllCourses();		
@@ -44,4 +51,24 @@ public class CourseService {
 		return courseDao.removeById(id);
 	}
 	
+	
+	public void addAttendeeToCourse(Course course, User user, UserService userService) {
+		course.setNumberAttendees(course.getNumberAttendees() + 1);
+		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
+			course.setAvailable(false);
+		}
+		this.updateCourse(course);
+		
+		user.setCourseID(course.getCourseID());
+		userService.createOrUpdateUser(user);
+	}
+
+	public void removeAttendeeFromCourse(Course course, User user, UserService userService) {
+		course.setNumberAttendees(course.getNumberAttendees() - 1);
+		course.setAvailable(true);
+		this.updateCourse(course);		
+		
+		user.setCourseID(null);
+		userService.createOrUpdateUser(user);
+	}
 }

@@ -54,6 +54,7 @@ $(document).ready(function()
         					No <br />
 								</c:otherwise>
 							</c:choose></td>
+							<td align="center"><a href="<c:url value='/assigntocourse/${course.courseID}' />" >Assign People</a>
 							<td align="center"><a href="<c:url value='/attendeeslist/${course.courseID}' />" >Generate Email List</a>
 							<td align="center"><a href="<c:url value='/completecourse/${course.courseID}' />" >Complete/Delete</a>
 						</tr>

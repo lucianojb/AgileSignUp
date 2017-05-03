@@ -49,8 +49,8 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String createUser(Model model, @Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes
-			, @RequestParam("submit")String submit){
+	public String createUser(Model model, @Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			@RequestParam("submit")String submit){
 		logger.info("Create a new user POST");
 		
 		if(bindingResult.hasErrors()){

@@ -11,4 +11,5 @@ public interface UserDao {
 	public List<User> getUsersByCourseId(int courseID);
 	public boolean remove(int id);
 	public List<User> getUsersByPreferredCourseId(int id);
+	public List<User> getAllUsersOrderedByGivenCourseIdFirst(int id);
 }

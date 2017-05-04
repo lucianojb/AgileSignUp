@@ -2,6 +2,7 @@ package com.agile.signup.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import org.hibernate.SessionFactory;
@@ -40,9 +41,16 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public User getUserById(int id) {
-		return this.sessionFactory.getCurrentSession()
-		.createQuery("from User where userid = :useridentify", User.class)
-		.setParameter("useridentify", id).getSingleResult();
+		User user;
+		try{
+			user = this.sessionFactory.getCurrentSession()
+					.createQuery("from User where userid = :useridentify", User.class)
+					.setParameter("useridentify", id).getSingleResult();
+		}catch(NoResultException nre){
+			return null;
+		}
+		
+		return user;
 	}
 
 	@Override
@@ -64,6 +72,13 @@ public class UserDaoImpl implements UserDao{
 	public List<User> getUsersByPreferredCourseId(int id) {
 		return this.sessionFactory.getCurrentSession()
 				.createQuery("from User where preferredcourse = :courseidentify order by lastname", User.class)
+				.setParameter("courseidentify", id).getResultList();
+	}
+
+	@Override
+	public List<User> getAllUsersOrderedByGivenCourseIdFirst(int id) {
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from User order by case when courseid = :courseidentify then 1 else 2 end", User.class)
 				.setParameter("courseidentify", id).getResultList();
 	}
 }

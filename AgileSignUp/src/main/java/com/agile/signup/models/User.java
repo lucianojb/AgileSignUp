@@ -22,12 +22,16 @@ public class User {
 	private int userID;
 	
 	@Column(name="firstname")
+	@Size(min=1, message="First name cannot be empty")
 	private String firstName;
 	
 	@Column(name="lastname")
+	@Size(min=1, message="Last name cannot be empty")
 	private String lastName;
 	
 	@Column(name="email")
+	@Size(min=1, message="Email cannot be empty")
+	@Email(message="Not a valid email address")
 	private String email;
 	
 	@Column(name="federal")

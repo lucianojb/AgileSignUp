@@ -3,11 +3,14 @@ package com.agile.signup.web;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -106,40 +109,31 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/edituser/{id}", method = RequestMethod.POST)
-	public String editUserPost(@PathVariable("id") int id, Model model, @RequestParam("firstName") String fname,
-			@RequestParam("lastName") String lname, @RequestParam("email") String email, @RequestParam("fed") String employeeType,
-			@RequestParam("mySelect") String division, @RequestParam("submit")String submit){
-		logger.info("Editing User {} POST", id);
+	public String editUserPost(@PathVariable("id") int id, Model model, @Valid User user, 
+			BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam("submit")String submit){
+		logger.info("Editing User {} is {} POST", id, user);
+		
+		if(bindingResult.hasErrors()){
+	        redirectAttributes.addFlashAttribute("errors", bindingResult);
+			redirectAttributes.addFlashAttribute("user", user);
+			
+			List<Division> divisionList = Arrays.asList(Division.values());
+			
+			model.addAttribute("divisions", divisionList);
+			
+			return "edituser";
+		}
 		
 		if(submit.equals("cancel")){
-			RedirectView rview = new RedirectView();
-			rview.setUrl("../users");
 			return "redirect:../users";
 		}
 		
-		User user = userService.getUserById(id);
-		user = updateUserFromStrings(user, fname, lname, email, employeeType, division);
-		
+		user.setUserID(id);
 		userService.createOrUpdateUser(user);
 		
 		RedirectView rview = new RedirectView();
 		rview.setUrl("../users");
 		return "redirect:../users";
-	}
-	
-	private User updateUserFromStrings(User user, String fname, String lname, String email, String employeeType,
-			String division) {
-		user.setFirstName(fname);
-		user.setLastName(lname);
-		user.setEmail(email);
-		if(employeeType.equals("federal")){
-			user.setFederal(true);
-		}else{
-			user.setFederal(false);
-		}
-		user.setDivision(Division.valueOf(division));
-		
-		return user;
 	}
 	
 	@RequestMapping(value = "/selectcourse/{id}", method = RequestMethod.GET)

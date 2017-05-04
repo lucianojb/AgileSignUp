@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,7 +15,7 @@
 <jsp:include page="adminheader.jsp" />
 
 
-	<form method="POST">
+	<sf:form method="POST" commandName="user">
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
 
@@ -22,17 +23,19 @@
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-3">
 					<div class="form-group">
-						<label for="firstName">First Name</label> <input
-							class="form-control" id="firstName" name="firstName" type="text"
-							value="${user.firstName} " />
+						<label for="firstName">First Name</label> <sf:input
+							class="form-control" id="firstName" name="firstName" path="firstName" type="text"
+							value="${user.firstName}" />
+							<sf:errors path="firstName"/>	
 					</div>
 				</div>
 
 				<div class="col-sm-3">
 					<div class="form-group">
-						<label for="lastName">Last Name</label> <input
-							class="form-control" id="lastName" name="lastName" type="text"
+						<label for="lastName">Last Name</label> <sf:input
+							class="form-control" id="lastName" name="lastName" path="lastName" type="text"
 							value="${user.lastName}" />
+							<sf:errors path="lastName"/>
 					</div>
 				</div>
 			</div>
@@ -40,8 +43,9 @@
 			<div class="row">
 				<div class="col-sm-6 col-centered">
 					<div class="form-group">
-						<label for="email">Email</label> <input class="form-control"
-							id="email" name="email" type="text" value="${user.email}" />
+						<label for="email">Email</label> <sf:input class="form-control"
+							id="email" name="email" type="text" path="email" value="${user.email}" />
+							<sf:errors path="email"/>
 					</div>
 				</div>
 			</div>
@@ -49,37 +53,37 @@
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-3">
 					<div class="form-group">
-						<label for="fed">Federal or Contractor</label> <select
-							class="form-control" name="fed" id="fed" value="${user.federal}">
+						<label for="fed">Federal or Contractor</label> <sf:select
+							class="form-control" name="fed" id="fed" path="federal" value="${user.federal}">
 							<c:choose>
 								<c:when test="${user.federal}">
-									<option value="federal" selected="selected" > Federal</option>
-									<option value="contractor"> Contractor</option>
+									<sf:option value="true" path="federal" selected="selected" > Federal</sf:option>
+									<sf:option value="false" path="federal"> Contractor</sf:option>
 									</c:when>
 									<c:otherwise>>
-									<option value="federal"  > Federal</option>
-									<option value="contractor" selected="selected"> Contractor</option>
+									<sf:option value="true"  path="federal"> Federal</sf:option>
+									<sf:option value="false" path="federal" selected="selected"> Contractor</sf:option>
 									</c:otherwise>
 							</c:choose>
-						</select>
+						</sf:select>
 					</div>
 				</div>
 
 				<div class="col-sm-3">
 					<div class="form-group">
-						<label for="mySelect">Division</label> <select
-							class="form-control" name="mySelect" id="mySelect">
+						<label for="mySelect">Division</label> 
+						<sf:select class="form-control" name="mySelect" id="mySelect" path="division">
 							<c:forEach items="${divisions}" var="division">
 								<c:choose>
 									<c:when test="${division eq user.division}">
-										<option selected="selected" value="${division}">${division}</option>
+										<sf:option path="division" selected="selected" value="${division}">${division}</sf:option>
 									</c:when>
 									<c:otherwise>
-										<option value="${division}">${division}</option>
+										<sf:option path="division" value="${division}">${division}</sf:option>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						</select>
+						</sf:select>
 					</div>
 				</div>
 			</div>
@@ -96,6 +100,6 @@
 			</div>
 
 		</div>
-	</form>
+	</sf:form>
 </body>
 </html>

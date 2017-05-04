@@ -178,7 +178,8 @@ public class CourseController {
 		logger.info("Getting mass assign page {}", id);
 		
 		Course course = courseService.getCourseById(id);
-		List<User> users = userService.getAllUsers();
+		
+		List<User> users = userService.getAllUsersOrderedByGivenCourseIdFirst(id);
 		
 		model.addAttribute("course", course);
 		model.addAttribute("userList", users);

@@ -61,6 +61,10 @@
 			<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
+	<bean id="mixedDao" class="com.agile.signup.dao.MixedDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
 	<bean id="customAuthenticationSuccessHandler" class="com.agile.signup.security.customAuthenticationSuccessHandler"/>
 </beans>
 

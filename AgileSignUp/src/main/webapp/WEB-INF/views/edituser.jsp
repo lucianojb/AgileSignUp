@@ -18,7 +18,7 @@
 	<sf:form method="POST" commandName="user">
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
-
+		<sf:input type="hidden" path="courseID" value="${user.courseID}" />
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-3">

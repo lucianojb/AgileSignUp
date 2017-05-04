@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.agile.signup.models.Course;
 import com.agile.signup.models.Division;
@@ -77,7 +76,7 @@ public class RegisterController {
 		if(user.getPreferredCourseID() != -1){
 			Course course = courseService.getCourseById(user.getPreferredCourseID());
 			if(course.isAvailable()){
-				courseService.addAttendeeToCourse(course, user, userService);
+				courseService.addAttendeeToCourse(course, user);
 			}
 		}else{
 			userService.createOrUpdateUser(user);

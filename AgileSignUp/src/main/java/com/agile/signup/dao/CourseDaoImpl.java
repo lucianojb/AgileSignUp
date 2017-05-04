@@ -3,8 +3,10 @@ package com.agile.signup.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +37,12 @@ public class CourseDaoImpl implements CourseDao{
 	public boolean addCourse(Course course) {
 		logger.info("Adding {} to database", course.toString());
 		
-		sessionFactory.getCurrentSession().saveOrUpdate(course);
-		
-		return true;
+		try{
+			sessionFactory.getCurrentSession().merge(course);
+			return true;
+		}catch(HibernateException exc){
+			return false;
+		}
 	}
 
 	@Override
@@ -50,10 +55,18 @@ public class CourseDaoImpl implements CourseDao{
 
 	@Override
 	public Course getCourseById(int id) {
-		return this.sessionFactory.getCurrentSession()
+		Course course;
+		
+		try{
+		course = this.sessionFactory.getCurrentSession()
 				.createQuery("from Course where courseid = :courseidentity", Course.class)
 				.setParameter("courseidentity", id)
 				.getSingleResult();
+		}catch(NoResultException nre){
+			return null;
+		}
+		
+		return course;
 	}
 	
 	@Override

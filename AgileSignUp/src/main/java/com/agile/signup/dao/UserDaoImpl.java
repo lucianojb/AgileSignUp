@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +34,12 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public boolean addUser(User user) {
 		logger.info("Adding {} to database", user.toString());
-
-		sessionFactory.getCurrentSession().saveOrUpdate(user);
-
-		return true;
+		try{
+			sessionFactory.getCurrentSession().merge(user);
+			return true;
+		}catch(HibernateException exc){
+			return false;
+		}
 	}
 
 	@Override

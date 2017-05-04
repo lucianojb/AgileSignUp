@@ -78,7 +78,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", federal=" + federal
-				+ ", division=" + division + "]";
+				+ ", division=" + division + ", courseID=" + courseID + "]";
 	}
 	
 	public String getFirstName() {

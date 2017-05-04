@@ -91,11 +91,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/edituser/{id}", method = RequestMethod.GET)
-	public String editUserGet(@PathVariable("id") int id, Model model) {
-		logger.info("Editing User {} GET", id);
-		
-		User user = userService.getUserById(id);
+	public String editUserGet(@PathVariable("id") int id, Model model, User user) {
+		user = userService.getUserById(id);
+		logger.info("Editing User {} is {} GET", id, user);
 		if(user == null){
+			model.addAttribute("errorMessage", "Could not find user to edit");
 			return "error";
 		}
 		
@@ -142,6 +142,7 @@ public class UserController {
 		User user = userService.getUserById(id);
 		
 		if(user == null){
+			model.addAttribute("errorMessage", "Could not find user to select course");
 			return "error";
 		}
 		

@@ -65,7 +65,7 @@ public class CourseController {
 		
 		Course course = courseService.getCourseById(id);
 		if(course == null){
-			model.addAttribute("errorMessage", "Could not find course");
+			model.addAttribute("errorMessage", "Could not find course to complete");
 			return "error";
 		}
 		
@@ -80,7 +80,7 @@ public class CourseController {
 		
 		Course course = courseService.getCourseById(id);
 		if(course == null){
-			model.addAttribute("errorMessage", "Could not find course to delete");
+			model.addAttribute("errorMessage", "Could not find course to complete");
 			return "redirect:../error";
 		}
 		
@@ -157,6 +157,11 @@ public class CourseController {
 	public String getAttendees(Model model, @PathVariable("id") String courseID, RedirectAttributes redirectAttribute){
 		
 		Course course = courseService.getCourseById(Integer.parseInt(courseID));
+		if(course == null){
+			model.addAttribute("errorMessage", "Could not find course to get attendees");
+			return "error";
+		}
+		
 		if(course.getNumberAttendees() == 0){
 			redirectAttribute.addFlashAttribute("errorMessage", "No people in course to generate email list");
 			return "redirect:../error";
@@ -178,6 +183,10 @@ public class CourseController {
 		logger.info("Getting mass assign page {}", id);
 		
 		Course course = courseService.getCourseById(id);
+		if(course == null){
+			model.addAttribute("errorMessage", "Could not find course to assign users");
+			return "error";
+		}
 		
 		List<User> users = userService.getAllUsersOrderedByGivenCourseIdFirst(id);
 		
@@ -199,6 +208,10 @@ public class CourseController {
 		
 		if(submit.equals("save")){			
 			Course course = courseService.getCourseById(id);
+			if(course == null){
+				model.addAttribute("errorMessage", "Could not find course to complete");
+				return "error";
+			}
 			
 			List<User> newUsers = new LinkedList<User>();
 			if(newUsersAssigned != null){

@@ -52,7 +52,7 @@ public class CourseService {
 	}
 	
 	
-	public void addAttendeeToCourse(Course course, User user, UserService userService) {
+	public boolean addAttendeeToCourse(Course course, User user, UserService userService) {
 		course.setNumberAttendees(course.getNumberAttendees() + 1);
 		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
 			course.setAvailable(false);
@@ -61,14 +61,18 @@ public class CourseService {
 		
 		user.setCourseID(course.getCourseID());
 		userService.createOrUpdateUser(user);
+		
+		return true;
 	}
 
-	public void removeAttendeeFromCourse(Course course, User user, UserService userService) {
+	public boolean removeAttendeeFromCourse(Course course, User user, UserService userService) {
 		course.setNumberAttendees(course.getNumberAttendees() - 1);
 		course.setAvailable(true);
 		this.updateCourse(course);		
 		
 		user.setCourseID(null);
 		userService.createOrUpdateUser(user);
+		
+		return true;
 	}
 }

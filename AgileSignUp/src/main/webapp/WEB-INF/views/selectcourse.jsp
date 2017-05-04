@@ -18,10 +18,15 @@
 	
 	<div class = "container">
 		<div class = "row">
-			<div class = "col-sm-3 col-centered">	
-				<h3>Course Selection:</h3>
-				<h1 style = "text-align: center;"><c:out value=" ${user.firstName}"></c:out> <c:out value="${user.lastName}"></c:out></h1>	
+			<div class = "col-sm-3 col-centered row-bordered">	
+				<h1 style = "text-align: center">Course Selection</h1>	
 			</div>
+		</div>
+		
+		<div class = "row">
+		
+		<div class = "col-sm-3 col-centered">
+			<h1 style = "text-align: center;"><c:out value=" ${user.firstName}"></c:out> <c:out value="${user.lastName}"></c:out></h1>
 		</div>
 		<div class = "row top-buffer">
 			<div class = "col-sm-3 col-centered">	
@@ -39,6 +44,7 @@
 	</div>
 	
 	<div class = "row top-buffer">
+	
 	
 			<c:choose>
 			<c:when test="${not empty user.courseID}">
@@ -77,13 +83,17 @@
     				<p style = "text-align: center; padding-top:4px; padding-bottom:15px;"> <fmt:formatDate value="${enrolledCourseDate}" pattern="MM-dd-yyyy" /> <p>
     				<button type="submit" class = "btn btn-danger btn-block" name="submit" value="remove">Remove From Assigned Course</button>
     			</c:if>
-				</form>
+				
 			</div>
 			</div>
     	</div>
     
-    <div class = "row">
-
+    <div class = "row top-buffer">
+		<div class = "col-sm-3 col-centered">
+											<button type="submit" class="btn btn-block" name="submit"
+						value="cancel">Cancel</button>	
+		</div>
+		</form>
     </c:when>
     <c:otherwise>
     	No other courses available to add user to!

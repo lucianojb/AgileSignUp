@@ -7443,4 +7443,11 @@ h3 {
     text-decoration: underline;
     font-size: 36px !important;
 }
+
+.row-bordered:after {
+  content: "";
+  display: block;
+  border-bottom: 1px solid #ccc;
+  margin: 0 15px;
+}
 /*# sourceMappingURL=bootstrap.min.css.map */

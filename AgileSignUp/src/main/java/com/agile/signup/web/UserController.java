@@ -79,7 +79,7 @@ public class UserController {
 				Course course = courseService.getCourseById(user.getCourseID());
 				if(course != null){
 					logger.info("Removing user {} from course {}", user, course);
-					courseService.removeAttendeeFromCourse(course, user, userService);
+					courseService.removeAttendeeFromCourse(course, user);
 				}
 			}
 			//remove user	
@@ -182,7 +182,7 @@ public class UserController {
 		if(submit.equals("remove")){
 			if(user.getCourseID() != null){
 				course = courseService.getCourseById(user.getCourseID());
-				courseService.removeAttendeeFromCourse(course, user, userService);
+				courseService.removeAttendeeFromCourse(course, user);
 			}
 			
 			return "redirect:../users";
@@ -190,7 +190,7 @@ public class UserController {
 		
 		if(user.getCourseID() != null){
 			course = courseService.getCourseById(user.getCourseID());
-			courseService.removeAttendeeFromCourse(course, user, userService);
+			courseService.removeAttendeeFromCourse(course, user);
 		}
 		
 		course = courseService.getCourseById(courseID);
@@ -198,7 +198,7 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("errorMessage", "Could not add to course, course was full");
 			return "redirect:../error";
 		}
-		courseService.addAttendeeToCourse(course, user, userService);
+		courseService.addAttendeeToCourse(course, user);
 		
 		return "redirect:../users";
 	}

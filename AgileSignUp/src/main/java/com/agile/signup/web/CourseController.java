@@ -6,25 +6,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.agile.signup.models.Course;
 import com.agile.signup.models.User;
@@ -223,16 +215,17 @@ public class CourseController {
 			List<User> usersPreviouslyAssigned = userService.getUsersByCourseId(id);
 			for(User user: usersPreviouslyAssigned){
 				if(!newUsers.contains(user)){
-					courseService.removeAttendeeFromCourse(course, user, userService);
+					courseService.removeAttendeeFromCourse(course, user);
 				}
 			}
 			
 			for(User user: newUsers){
 				if(user.getCourseID() != null && user.getCourseID() != id){
-					courseService.removeAttendeeFromCourse(courseService.getCourseById(user.getCourseID()), user, userService);
-					courseService.addAttendeeToCourse(course, user, userService);
+					Course courseToRemoveFrom = courseService.getCourseById(user.getCourseID());
+					courseService.removeAttendeeFromCourse(courseToRemoveFrom, user);
+					courseService.addAttendeeToCourse(course, user);
 				}else if(user.getCourseID() == null){
-					courseService.addAttendeeToCourse(course, user, userService);
+					courseService.addAttendeeToCourse(course, user);
 				}
 			}
 			

@@ -66,4 +66,11 @@ public class UserDaoImpl implements UserDao{
 				.createQuery("from User where preferredcourse = :courseidentify order by lastname", User.class)
 				.setParameter("courseidentify", id).getResultList();
 	}
+
+	@Override
+	public List<User> getAllUsersOrderedByGivenCourseIdFirst(int id) {
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from User order by case when courseid = :courseidentify then 1 else 2 end", User.class)
+				.setParameter("courseidentify", id).getResultList();
+	}
 }

@@ -35,6 +35,10 @@ public class UserService {
 	public List<User> getUsersByPreferredCourseId(int id) {
 		return userDao.getUsersByPreferredCourseId(id);
 	}
+
+	public List<User> getAllUsersOrderedByGivenCourseIdFirst(int id) {
+		return userDao.getAllUsersOrderedByGivenCourseIdFirst(id);
+	}
 	
 	
 

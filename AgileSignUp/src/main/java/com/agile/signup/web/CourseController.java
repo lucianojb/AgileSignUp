@@ -179,7 +179,6 @@ public class CourseController {
 		
 		Course course = courseService.getCourseById(id);
 		
-		//List<User> users = userService.getAllUsers();
 		List<User> users = userService.getAllUsersOrderedByGivenCourseIdFirst(id);
 		
 		model.addAttribute("course", course);

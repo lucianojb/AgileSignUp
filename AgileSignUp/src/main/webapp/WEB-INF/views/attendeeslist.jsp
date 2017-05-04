@@ -20,7 +20,7 @@
 			<div class = "col-sm-3 col-centered">
 				<h1 style="text-align: center"> Email List </h1>
 					<c:forEach items="${emailList}" var="email">
-						${email}
+						${email};
 					</c:forEach>
 			</div>
 		</div>

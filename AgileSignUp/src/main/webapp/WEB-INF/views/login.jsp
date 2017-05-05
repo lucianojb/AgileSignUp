@@ -12,47 +12,39 @@
 </head>
     <body>
     	<jsp:include page="header.jsp" />
-    	
-    	
-    	 	<div class = "container">
-    	 		<div class = "row">
-    	 			<div class = "col-sm-3 col-centered row-bordered">
-    	 		  	<h1 style="text-align:center">Login to Agile Sign-up</h1> 
-    	 			</div>
-    	 		</div>
-    	 	
-    	 	
-    		<form action="${loginUrl}" method="post">
-        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        	<c:url var="loginUrl" value="/login"/>
-        	
-    	 	<div clas = "row top-buffer">
-    	 		<div class = "col-sm-3 col-centered top-buffer">
-    	 		  	<div class="form-group">
-    	 		  	 	<label for="username">Username:</label>
-  						<input type="text" class="form-control" id="username" name="username">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3 col-centered row-bordered">
+					<h1 style="text-align: center">Login to Agile Sign-up</h1>
+				</div>
+			</div>
+
+		<form action="${loginUrl}" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<c:url var="loginUrl" value="/login" />
+
+			<div clas="row top-buffer">
+				<div class="col-sm-3 col-centered top-buffer">
+					<div class="form-group">
+						<label for="username">Username:</label> <input type="text" class="form-control" id="username" name="username">
 					</div>
-    	 		</div>	
-    	 	</div>
-    	 	
-    	 	
-    	 	<div clas = "row">
-    	 		<div class = "col-sm-3 col-centered">
-    	 		  	<div class="form-group">
-    	 		 		<label for="password">Password:</label>
-  						<input type="password" class="form-control" id="password" name = "password">
+				</div>
+			</div>
+
+			<div clas="row">
+				<div class="col-sm-3 col-centered">
+					<div class="form-group">
+						<label for="password">Password:</label> <input type="password" class="form-control" id="password" name="password">
 					</div>
-    	 		</div>	
-    	 	</div>
-    	 	
-    	 	<div clas = "row">
-    	 		<div class = "col-sm-3 col-centered">
-    	 			<button type="submit" class="btn btn-success btn-block">Login</button>
-    	 		</div>	
-    	 	</div>
-    	 	
-    	 	</div>
+				</div>
+			</div>
+
+			<div clas="row">
+				<div class="col-sm-3 col-centered">
+					<button type="submit" class="btn btn-success btn-block">Login</button>
+				</div>
+			</div>
+		</div>
 </form>
-</center>
-    </body>
+</body>
 </html>

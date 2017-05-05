@@ -19,7 +19,9 @@
         username-parameter="username"
 		password-parameter="password"
         authentication-success-handler-ref="customAuthenticationSuccessHandler" />
-        <logout logout-success-url="/logout" />
+        <logout logout-success-url="/logout"
+        logout-url="/logout"   
+        delete-cookies="JSESSIONID" />
         <csrf />
     </http>
  

@@ -10,6 +10,7 @@
     <http auto-config="true"  use-expressions="true">
         <intercept-url pattern="/login" access="permitAll" />
         <intercept-url pattern="/denied" access="permitAll" />
+        <intercept-url pattern="/logout" access="permitAll" />
         <intercept-url pattern="/resources/css/bootstrap.min.css" access="permitAll" />
         <intercept-url pattern="/register" access="permitAll" />
         <intercept-url pattern="/registersuccess" access="permitAll" />
@@ -18,7 +19,9 @@
         username-parameter="username"
 		password-parameter="password"
         authentication-success-handler-ref="customAuthenticationSuccessHandler" />
-        <logout logout-success-url="/logout" />
+        <logout logout-success-url="/logout"
+        logout-url="/logout"   
+        delete-cookies="JSESSIONID" />
         <csrf />
     </http>
  

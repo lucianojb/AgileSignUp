@@ -16,7 +16,7 @@
 </head>
 <body>
 
-	<jsp:include page="header.jsp" /> 	 
+	<jsp:include page="adminheader.jsp" /> 	 
 	
   	<sf:form method="POST" commandName="user">
 	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>

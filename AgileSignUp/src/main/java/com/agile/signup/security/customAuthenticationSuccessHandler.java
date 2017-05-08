@@ -40,7 +40,7 @@ public class customAuthenticationSuccessHandler implements
  
 	protected String determineTargetUrl(Authentication authentication) {
         Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        if (authorities.contains("ROLE_USER")) {
+        if (authorities.contains("ROLE_ADMIN")) {
         	return "/";
         } else {
             throw new IllegalStateException();

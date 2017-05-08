@@ -12,7 +12,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create User</title>
+<title>Register for an Agile Course</title>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	document.getElementById('selectThis').selectedIndex = 0;
+});
+</script>
 </head>
 <body>
 
@@ -54,9 +60,9 @@
 			<div class="col-sm-3 col-sm-offset-3">
 		  		<div class="form-group">
 		  			<label class="control-label" for="fed">Federal or Contractor</label>
-					<sf:select class="form-control" name="fed" id="fed" path="federal">
-						<sf:option value="true" path="federal"> Federal</sf:option>
-						<sf:option value="false" path="federal"> Contractor</sf:option>
+					<sf:select class="form-control" path="federal" id="selectThis">
+						<sf:option value="true" path="federal">Federal</sf:option>
+						<sf:option value="false" path="federal">Contractor</sf:option>
 					</sf:select>
 				</div>
 			</div>

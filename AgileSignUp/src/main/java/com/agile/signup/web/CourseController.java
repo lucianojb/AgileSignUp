@@ -154,11 +154,6 @@ public class CourseController {
 			return "error";
 		}
 		
-		if(course.getNumberAttendees() == 0){
-			redirectAttribute.addFlashAttribute("errorMessage", "No people in course to generate email list");
-			return "redirect:../error";
-		}
-		
 		List<User> users = userService.getUsersByCourseId(course.getCourseID());
 		List<String> emails = new LinkedList<String>();
 		for(int x = 0; x < users.size(); x++){
@@ -194,7 +189,7 @@ public class CourseController {
 		logger.info("Posting mass assign for {}", id);
 		
 		if(newUsersAssigned != null && newUsersAssigned.size() > courseService.getMaxNumberAttendees()){
-			redirectAttribute.addFlashAttribute("errorMessage", "Number of selected users exceeds max number of attendees per course");
+			redirectAttribute.addFlashAttribute("errorMessage", "Number of selected users exceeds max number of attendees per course: " + courseService.getMaxNumberAttendees());
 			return "redirect:../error";
 		}
 		

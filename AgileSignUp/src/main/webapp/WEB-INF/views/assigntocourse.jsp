@@ -47,7 +47,7 @@
 						<thead>
 							<tr>
 								<th class="text-center"><input class="check-all"
-									type="checkbox" name="checkbox" id="toggle-all"></th>
+									type="checkbox" name="mainCheckbox" id="toggle-all"></th>
 								<th class="text-center">First Name</th>
 								<th class="text-center">Last Name</th>
 								<th class="text-center">Assigned to Course</th>
@@ -80,7 +80,6 @@
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-							</div>
 						</tbody>
 					</table>
 
@@ -102,7 +101,7 @@
 						name="submit" value="save">Assign users to course</button>
 				</div>
 			</div>
-	</div>
 	</form>
+	</div>
 </body>
 </html>

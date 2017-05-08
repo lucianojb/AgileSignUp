@@ -38,6 +38,11 @@
 		<location>/WEB-INF/views/404error.jsp</location>
 	</error-page>
 	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/500error.jsp</location>
+	</error-page>
+	
 	<filter>
     	<filter-name>springSecurityFilterChain</filter-name>
     	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

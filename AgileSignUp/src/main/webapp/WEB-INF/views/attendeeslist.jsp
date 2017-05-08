@@ -19,14 +19,21 @@
 		<div class="row">
 			<div class = "col-sm-3 col-centered">
 				<h1 style="text-align: center"> Email List </h1>
-					<c:forEach items="${emailList}" var="email">
-						${email};
-					</c:forEach>
+					<c:choose>
+					<c:when test="${empty emailList}">
+						No users assigned to course.
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${emailList}" var="email">
+							${email};
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
 			</div>
 		</div>
 		<div class="row top-buffer">
 			<div class = "col-sm-3 col-centered">
-				<a href="/signup/courses" type="button" class="btn btn-success btn-block">Return Courses</a>
+				<a href="/signup/courses" type="button" class="btn btn-success btn-block">Return to Courses</a>
 			</div>
 		</div>
 	</div>	

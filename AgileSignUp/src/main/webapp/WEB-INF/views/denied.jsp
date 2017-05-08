@@ -16,7 +16,7 @@
   	 	</div>
   	 	<center>
         <h1>Error: Wrong username/password</h1>
-        <a href=".//login "button type="button" class="btn btn-success btn-center">Return to login</a>
+        <a href="./login "button type="button" class="btn btn-success btn-center">Return to login</a>
         </center>
     </body>
 </html>

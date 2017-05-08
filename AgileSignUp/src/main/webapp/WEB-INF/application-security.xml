@@ -24,13 +24,14 @@
         delete-cookies="JSESSIONID" />
         <csrf />
     </http>
- 
-    <authentication-manager alias="authenticationManager">
-        <authentication-provider>
-            <user-service>
-                <user name="agile" password="password" authorities="ROLE_ADMIN" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
- 
+    
+<authentication-manager>  
+  <authentication-provider>  
+   <jdbc-user-service data-source-ref="dataSource"  
+    users-by-username-query="select username, password, enabled from admin_users where username=?"  
+    authorities-by-username-query="select username, role from user_roles where username = ?" />
+    <password-encoder hash="bcrypt" />
+  </authentication-provider>  
+ </authentication-manager>
+   
 </beans:beans>

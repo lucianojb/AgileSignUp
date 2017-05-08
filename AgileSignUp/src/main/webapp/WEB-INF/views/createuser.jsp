@@ -55,7 +55,7 @@
 		  		<div class="form-group">
 		  			<label class="control-label" for="fed">Federal or Contractor</label>
 					<sf:select class="form-control" name="fed" id="fed" path="federal">
-						<sf:option value="true" path="federal"> Federal</sf:option>
+						<sf:option value="true" path="federal" sselected="selected"> Federal</sf:option>
 						<sf:option value="false" path="federal"> Contractor</sf:option>
 					</sf:select>
 				</div>

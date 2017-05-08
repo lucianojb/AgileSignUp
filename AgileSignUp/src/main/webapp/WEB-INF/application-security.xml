@@ -27,6 +27,7 @@
    <jdbc-user-service data-source-ref="dataSource"  
     users-by-username-query="select username, password, enabled from admin_users where username=?"  
     authorities-by-username-query="select username, role from user_roles where username = ?" />
+    <password-encoder hash="bcrypt" />
   </authentication-provider>  
  </authentication-manager>
   

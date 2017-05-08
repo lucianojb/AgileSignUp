@@ -80,7 +80,6 @@
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-							</div>
 						</tbody>
 					</table>
 
@@ -102,7 +101,7 @@
 						name="submit" value="save">Assign users to course</button>
 				</div>
 			</div>
-	</div>
 	</form>
+	</div>
 </body>
 </html>

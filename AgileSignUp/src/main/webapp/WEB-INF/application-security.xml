@@ -12,6 +12,8 @@
         <intercept-url pattern="/denied" access="permitAll" />
         <intercept-url pattern="/logout" access="permitAll" />
         <intercept-url pattern="/error" access="permitAll" />
+        <intercept-url pattern="/500error" access="permitAll" />
+        <intercept-url pattern="/404error" access="permitAll" />
         <intercept-url pattern="/resources/css/bootstrap.min.css" access="permitAll" />
         <intercept-url pattern="/register" access="permitAll" />
         <intercept-url pattern="/registersuccess" access="permitAll" />

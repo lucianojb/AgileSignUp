@@ -9,9 +9,9 @@
 </head>
     <body> 
     	<jsp:include page="adminheader.jsp" />
-  	 	<center>
+    	<div align="center">
         <h1>Error: Wrong username/password</h1>
-        <a href="./login "button type="button" class="btn btn-success btn-center">Return to login</a>
-        </center>
+        <a href="./login" type="button" class="btn btn-success btn-center">Return to login</a>
+        </div>
     </body>
 </html>

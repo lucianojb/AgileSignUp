@@ -52,7 +52,7 @@
 			     <div class="form-group"> <!-- Date input -->
         			<label class="control-label" for="pickedDate">Course Date</label>
         			<div class="input-group">
-        				<input class="form-control" id="pickedDate" name="pickedDate" placeholder="	 MM/DD/YYY" type="text"/>
+        				<input class="form-control" id="pickedDate" name="pickedDate" placeholder="MM/DD/YYY"/>
         			    <div class="input-group-addon">
         					<i class="fa fa-calendar-plus-o"></i>
        					</div>

@@ -11,7 +11,7 @@
 <title>Registration Success</title>
 </head>
 <body>
-	<jsp:include page="header.jsp" /> 	
+	<jsp:include page="adminheader.jsp" /> 	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3 col-centered">

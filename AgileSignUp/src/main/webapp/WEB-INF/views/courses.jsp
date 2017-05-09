@@ -11,7 +11,8 @@
 <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/signup/resources/jquery.tablesorter.min.js"></script> 
+	<script type="text/javascript" src="/signup/resources/jquery.tablesorter.min.js">
+	</script> 
 
 <script type="text/javascript">
 $(document).ready(function() 
@@ -45,7 +46,7 @@ $(document).ready(function()
 				<tbody>
 					<c:forEach items="${courseData}" var="course">
 						<tr>
-							<td align="center"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></td>
+							<td align="center"><fmt:formatDate value="${course.courseDate}" pattern="MM-dd-yyyy" /></td>
 							<td align="center"><c:out value="${course.numberAttendees}" /></td>
 							<td align="center"><c:choose>
 								<c:when test="${course.isAvailable}">

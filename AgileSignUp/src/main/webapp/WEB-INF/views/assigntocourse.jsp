@@ -61,9 +61,9 @@
 											<td align="center"><input type="checkbox"
 												name="checkbox" value="${user.userID}" checked></td>
 											<td align="center"><a
-												href="<c:url value='/edituser/${user.userID}' />">${user.firstName}</a></td>
+												href="<c:url value='/selectcourse/${user.userID}' />">${user.firstName}</a></td>
 											<td align="center"><a
-												href="<c:url value='/edituser/${user.userID}' />">${user.lastName}</a></td>
+												href="<c:url value='selectcourse/${user.userID}' />">${user.lastName}</a></td>
 											<td align="center">Yes</td>
 										</tr>
 									</c:when>
@@ -72,9 +72,9 @@
 											<td align="center"><input type="checkbox"
 												name="checkbox" value="${user.userID}"></td>
 											<td align="center"><a
-												href="<c:url value='/edituser/${user.userID}' />">${user.firstName}</a></td>
+												href="<c:url value='/selectcourse/${user.userID}' />">${user.firstName}</a></td>
 											<td align="center"><a
-												href="<c:url value='/edituser/${user.userID}' />">${user.lastName}</a></td>
+												href="<c:url value='/selectcourse/${user.userID}' />">${user.lastName}</a></td>
 											<td align="center">No</td>
 										</tr>
 									</c:otherwise>

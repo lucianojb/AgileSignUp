@@ -177,6 +177,7 @@ public class CourseController {
 		
 		List<User> users = userService.getAllUsersOrderedByGivenCourseIdFirst(id);
 		
+		model.addAttribute("maxAttendees", courseService.getMaxNumberAttendees());
 		model.addAttribute("course", course);
 		model.addAttribute("userList", users);
 						

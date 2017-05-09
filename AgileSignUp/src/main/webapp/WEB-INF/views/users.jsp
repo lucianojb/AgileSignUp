@@ -15,6 +15,7 @@
 <script type="text/javascript">
 $(document).ready(function() 
 	    { 
+			jQuery.noConflict();
 	        $("#myTable").tablesorter(); 
 	    } 
 	);

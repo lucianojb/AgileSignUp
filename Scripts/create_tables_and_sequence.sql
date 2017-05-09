@@ -8,7 +8,7 @@ drop sequence if exists courses_courseid_seq;
 create sequence users_userid_seq;
 create sequence courses_courseid_seq;
 
-CREATE TABLE public.courses (
+CREATE TABLE courses (
 	coursedate date NULL,
 	numberattendees int4 NULL,
 	isavailable bool NULL,
@@ -19,7 +19,7 @@ WITH (
 	OIDS=FALSE
 );
 
-CREATE TABLE public.users (
+CREATE TABLE users (
 	firstname text NULL,
 	lastname text NULL,
 	email text NULL,
@@ -35,7 +35,7 @@ WITH (
 	OIDS=FALSE
 );
 
-CREATE TABLE public.admin_users (
+CREATE table admin_users (
 	username varchar(45) NOT NULL,
 	password varchar(60) NOT NULL,
 	enabled int4 NOT NULL DEFAULT 1,
@@ -45,7 +45,7 @@ WITH (
 	OIDS=FALSE
 );
 
-CREATE TABLE public.user_roles (
+CREATE TABLE user_roles (
 	username varchar(45) NOT NULL,
 	"role" varchar(45) NOT NULL,
 	CONSTRAINT user_roles_pkey PRIMARY KEY (username),
@@ -55,6 +55,6 @@ WITH (
 	OIDS=FALSE
 );
 
-insert into public.admin_users values ('agile.admin', '$2a$10$JjHN6x2bBvcbEuCVvg9.5.CuBWdF9qd8nAk5G1kdHR8kpONVH5j4e', 1);
+insert into admin_users values ('agile.admin', '$2a$10$JjHN6x2bBvcbEuCVvg9.5.CuBWdF9qd8nAk5G1kdHR8kpONVH5j4e', 1);
 
-insert into public.user_roles values ('agile.admin', 'ROLE_ADMIN');
+insert into user_roles values ('agile.admin', 'ROLE_ADMIN');

@@ -36,14 +36,10 @@
 		<div class="container">
 			<div class="row">
 			
-				<div class="col-sm-3 col-centered">
-					<div class="form-group">
-						<!-- Date input -->
-						<label class="control-label">Course Date</label>
-						<div class="input-group">
-							<input class="form-control" id="pickedDate" name="pickedDate"
-								type="text" placeholder="XX/XX/XXXX-XX/XX/XXXX" />
-						</div>
+				<div class="col-sm-6 col-centered">
+				  	<div class="form-group">
+						<label class="control-label" for="pickedDate">Course Date</label>
+			 			<input class="form-control" id="pickedDate" name="pickedDate" type="text" placeholder = "MM/DD/YYYY-MM/DD/YYYY"/>
 					</div>
 				</div>
 			</div>

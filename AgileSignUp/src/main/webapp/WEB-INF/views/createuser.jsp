@@ -109,7 +109,7 @@ $(document).ready(function(){
 						<sf:select class="form-control" name="course" path="preferredCourseID">
 							<sf:option selected="selected" value="-1" path="preferredCourseID">No Preferred Date</sf:option>
 						<c:forEach items="${coursesList}" var="course">
-							<sf:option value="${course.courseID}" path="preferredCourseID"><fmt:formatDate value="${course.courseDate}" pattern="yyyy-MM-dd" /></sf:option>
+							<sf:option value="${course.courseID}" path="preferredCourseID"><c:out value="${course.courseDate}"/></sf:option>
 						</c:forEach>
 						</sf:select>
 				</div>

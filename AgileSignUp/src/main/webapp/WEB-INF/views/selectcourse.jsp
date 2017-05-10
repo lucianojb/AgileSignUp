@@ -33,7 +33,7 @@
 				<c:choose>
 				<c:when test="${not empty user.preferredCourseID && user.preferredCourseID > -1}">
 					<p style = "text-align:center;">User preferred date is: 
-					<fmt:formatDate value="${preferredCourse.courseDate}" pattern="MM-dd-yyyy" /></p>
+					<c:out value="${preferredCourse.courseDate}"/></p>
 				</c:when>
 				<c:otherwise>
 					<p style = "text-align:center">User has no preferred course date</p>
@@ -65,10 +65,10 @@
 			<c:forEach items="${coursesList}" var="course">
 			<c:choose>
 			<c:when test="${course.courseID eq memberOfCourse}">
-				<option value="${course.courseID}" selected="selected"><fmt:formatDate value="${course.courseDate}" pattern="MM-dd-yyyy" /></option>
+				<option value="${course.courseID}" selected="selected"><c:out value="${course.courseDate}"/></option>
 			</c:when>
 			<c:otherwise>
-				<option value="${course.courseID}"><fmt:formatDate value="${course.courseDate}" pattern="MM-dd-yyyy" /></option>
+				<option value="${course.courseID}"><c:out value="${course.courseDate}"/></option>
 			</c:otherwise>
 			</c:choose>
     </c:forEach>
@@ -80,7 +80,7 @@
     				<div class = "col-sm-3">	
     			<c:if test="${not empty user.courseID}">
     			<label class="control-label">Assigned Course:</label>
-    				<p style = "text-align: center; padding-top:4px; padding-bottom:15px;"> <fmt:formatDate value="${enrolledCourseDate}" pattern="MM-dd-yyyy" /> <p>
+    				<p style = "text-align: center; padding-top:4px; padding-bottom:15px;"> <c:out value="${enrolledCourseDate}"/> <p>
     				<button type="submit" class = "btn btn-danger btn-block" name="submit" value="remove">Remove From Assigned Course</button>
     			</c:if>
 				

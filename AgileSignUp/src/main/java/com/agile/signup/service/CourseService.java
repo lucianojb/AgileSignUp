@@ -30,7 +30,7 @@ public class CourseService {
 		return courseDao.getAllCourses();		
 	}
 	
-	public boolean createNewCourse(Date date){
+	public boolean createNewCourse(String date){
 		Course course = new Course(date);
 		return courseDao.addCourse(course);
 	}

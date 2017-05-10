@@ -1,7 +1,5 @@
 package com.agile.signup.models;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +18,7 @@ public class Course {
 	private int courseID;
 	
 	@Column(name="coursedate")
-	private Date courseDate;
+	private String courseDate;
 	
 	@Column(name="numberattendees")
 	private int numberAttendees;
@@ -32,14 +30,14 @@ public class Course {
 		super();
 	}
 	
-	public Course(Date courseDate) {
+	public Course(String courseDate) {
 		super();
 		this.courseDate = courseDate;
 		this.numberAttendees = 0;
 		this.isAvailable = true;
 	}
 	
-	public Course(int courseID, Date courseDate) {
+	public Course(int courseID, String courseDate) {
 		super();
 		this.courseID = courseID;
 		this.courseDate = courseDate;
@@ -61,11 +59,11 @@ public class Course {
 		this.courseID = courseID;
 	}
 	
-	public Date getCourseDate() {
+	public String getCourseDate() {
 		return courseDate;
 	}
 	
-	public void setCourseDate(Date courseDate) {
+	public void setCourseDate(String courseDate) {
 		this.courseDate = courseDate;
 	}
 	

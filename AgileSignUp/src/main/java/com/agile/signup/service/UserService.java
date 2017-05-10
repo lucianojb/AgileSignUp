@@ -39,7 +39,4 @@ public class UserService {
 	public List<User> getAllUsersOrderedByGivenCourseIdFirst(int id) {
 		return userDao.getAllUsersOrderedByGivenCourseIdFirst(id);
 	}
-	
-	
-
 }

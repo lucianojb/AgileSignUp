@@ -21,7 +21,7 @@
 		</div>
 		<div class = "row top-buffer">
 			<div class = "col-sm-3 col-centered">
-				<a href="/signup/" type="button" class="btn btn-success btn-block">Return Home</a>
+				<a href="/" type="button" class="btn btn-success btn-block">Return Home</a>
 			</div>
 		</div>
 	</div>

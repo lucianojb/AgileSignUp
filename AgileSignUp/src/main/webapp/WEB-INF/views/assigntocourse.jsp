@@ -13,7 +13,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="/signup/resources/jquery.checkall.js"></script>
+	src="/resources/jquery.checkall.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script>
 	$(document).ready(function() {

@@ -98,7 +98,7 @@
     <c:otherwise>
     	No other courses available to add user to!
     	<p>
-    		<a href="/signup/users">Return to users</a>
+    		<a href="../users">Return to users</a>
     	</p>
     </c:otherwise>   
     </c:choose>

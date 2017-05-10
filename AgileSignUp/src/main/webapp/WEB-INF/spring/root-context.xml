@@ -27,9 +27,9 @@
 		
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">	
         <property name = "driverClassName" value = "org.postgresql.Driver" />     
-        <property name="username" value="lucypastrana" />
-        <property name = "password" value = "afstas2017"/>   
-      	<property name="url" value ="jdbc:postgresql://tasagilesignup.custm6rfbdy3.us-west-2.rds.amazonaws.com:5432/agilesignup"/>
+        <property name="username" value="tasagilesignup" />
+        <property name = "password" value = "2w4r6y8i"/>   
+      	<property name="url" value ="jdbc:postgresql://tasagilesignup.cnxzozvuuvdx.us-west-2.rds.amazonaws.com:5432/tasagilesignup"/>
 	</bean>
 	
 	<bean id="sessionFactory"

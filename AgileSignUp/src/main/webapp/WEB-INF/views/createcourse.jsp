@@ -42,7 +42,7 @@
 						<label class="control-label">Course Date</label>
 						<div class="input-group">
 							<input class="form-control" id="pickedDate" name="pickedDate"
-								type="text" placeholder="XX/XX/XXXX - XX/XX/XXXX" />
+								type="text" placeholder="XX/XX/XXXX-XX/XX/XXXX" />
 						</div>
 					</div>
 				</div>

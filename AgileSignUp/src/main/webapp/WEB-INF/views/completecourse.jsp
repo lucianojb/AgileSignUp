@@ -24,7 +24,7 @@
 			
 			<div class = "row">
 				<div class = "col-sm-3 col-centered">
-					<h2 style = "text-align:center">Date: <fmt:formatDate value="${course.courseDate}" pattern="MM-dd-yyy" /></h2>
+					<h2 style = "text-align:center">Date: ${course.courseDate}</h2>
 				</div>
 			</div>
 			

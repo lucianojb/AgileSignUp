@@ -24,21 +24,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-<script>
-	$(document).ready(function() {
-		jQuery.noConflict();
-		var date_input = $('input[name="pickedDate"]'); //our date input has the name "date"
-		var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-		var options = {
-			format : 'mm/dd/yyyy',
-			container : container,
-			todayHighlight : true,
-			autoclose : true,
-			orientation : "top right"
-		};
-		date_input.datepicker(options);
-	})
-</script>
 <title>Create a New Course</title>
 </head>
 <body>
@@ -53,12 +38,9 @@
 					<div class="col-sm-4 col-sm-offset-4">
 						<div class="form-group">
 							<!-- Date input -->
-							<label class="control-label" for="pickedDate">Course Date</label>
+							<label class="control-label">Course Date</label>
 							<div class="input-group">
-								<input class="form-control" id="pickedDate" name="pickedDate" placeholder="MM/DD/YYYY"/>
-								<div class="input-group-addon">
-									<i class="fa fa-calendar-plus-o"></i>
-								</div>
+								<input class="form-control" id="pickedDate" name="pickedDate" type="text"/>
 							</div>
 						</div>
 					</div>

@@ -46,7 +46,7 @@ $(document).ready(function()
 				<tbody>
 					<c:forEach items="${courseData}" var="course">
 						<tr>
-							<td align="center"><fmt:formatDate value="${course.courseDate}" pattern="MM-dd-yyyy" /></td>
+							<td align="center"><c:out value="${course.courseDate}"/></td>
 							<td align="center"><c:out value="${course.numberAttendees}" /></td>
 							<td align="center"><c:choose>
 								<c:when test="${course.isAvailable}">
@@ -57,6 +57,7 @@ $(document).ready(function()
 								</c:otherwise>
 							</c:choose></td>
 							<td align="center"><a href="<c:url value='/assigntocourse/${course.courseID}' />" >Assign People</a>
+							<td align="center"><a href="<c:url value='/courseroster/${course.courseID}' />" >Generate Roster</a>
 							<td align="center"><a href="<c:url value='/attendeeslist/${course.courseID}' />" >Generate Email List</a>
 							<td align="center"><a href="<c:url value='/completecourse/${course.courseID}' />" >Complete/Delete</a>
 						</tr>

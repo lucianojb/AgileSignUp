@@ -1,9 +1,5 @@
 package com.agile.signup.web;
 
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -117,30 +113,7 @@ public class CourseController {
 	public String createCoursePost(Model model, @RequestParam("pickedDate") String date, RedirectAttributes redirectAttributes) {
 		logger.info("POST create course");
 		
-		logger.info("Date is {}", date);
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		Date dateObject = new Date();
-		try {
-			dateObject = sdf.parse(date);
-		} catch (ParseException e) {
-			redirectAttributes.addFlashAttribute("errorMessage", "Error using this date to create course");
-			return "redirect:createcourse";
-		}
-		
-		Date currentDate = new Date();
-		
-		if(dateObject.before(currentDate)){
-			redirectAttributes.addFlashAttribute("errorMessage", "Error! Cannot create a course in the past. Please select a new course date.");
-			return "redirect:createcourse";
-		}
-		
-		List<Course> coursesOnDate = courseService.getCoursesByDate(dateObject);
-		if(!coursesOnDate.isEmpty()){
-			redirectAttributes.addFlashAttribute("errorMessage", "Error! Course on this date already exists! Please select a new course date");
-			return "redirect:createcourse";
-		}
-		
-		courseService.createNewCourse(dateObject);
+		courseService.createNewCourse(date);
 		
 		return "redirect:courses";
 	}
@@ -163,6 +136,22 @@ public class CourseController {
 		model.addAttribute("emailList", emails);
 		
 		return "attendeeslist";
+	}
+	
+	@RequestMapping(value = "/courseroster/{id}", method = RequestMethod.GET)
+	public String generateCourseRoster(Model model, @PathVariable("id") String courseID, RedirectAttributes redirectAttribute){
+		
+		Course course = courseService.getCourseById(Integer.parseInt(courseID));
+		if(course == null){
+			model.addAttribute("errorMessage", "Could not find course to get attendees");
+			return "error";
+		}
+		
+		List<User> users = userService.getUsersByCourseId(course.getCourseID());
+		
+		model.addAttribute("userList", users);
+		
+		return "courseroster";
 	}
 	
 	@RequestMapping(value = "/assigntocourse/{id}", method = RequestMethod.GET)

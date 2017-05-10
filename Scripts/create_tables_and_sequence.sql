@@ -9,7 +9,7 @@ create sequence users_userid_seq;
 create sequence courses_courseid_seq;
 
 CREATE TABLE courses (
-	coursedate date NULL,
+	coursedate text NULL,
 	numberattendees int4 NULL,
 	isavailable bool NULL,
 	courseid int4 NOT NULL DEFAULT nextval('courses_courseid_seq'::regclass),

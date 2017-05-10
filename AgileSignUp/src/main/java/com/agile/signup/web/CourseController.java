@@ -113,6 +113,16 @@ public class CourseController {
 	public String createCoursePost(Model model, @RequestParam("pickedDate") String date, RedirectAttributes redirectAttributes) {
 		logger.info("POST create course");
 		
+		if(date == null || date.isEmpty()){
+			redirectAttributes.addFlashAttribute("errorMessage", "Course date cannot be empty");
+			return "redirect:createcourse";
+		}
+		
+		if(!date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}-[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}")){
+			redirectAttributes.addFlashAttribute("errorMessage", "Course date should be in the format 'mm/dd/yyyy-mm/dd/yyyy'");
+			return "redirect:createcourse";
+		}
+		
 		courseService.createNewCourse(date);
 		
 		return "redirect:courses";

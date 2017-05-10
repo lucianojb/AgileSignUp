@@ -165,30 +165,6 @@ public class CourseController {
 		return "attendeeslist";
 	}
 	
-	@RequestMapping(value = "/courseroster/{id}", method = RequestMethod.GET)
-	public String getUserRoster(Model model, @PathVariable("id") String courseID, RedirectAttributes redirectAttribute){
-		
-		Course course = courseService.getCourseById(Integer.parseInt(courseID));
-		if(course == null){
-			model.addAttribute("errorMessage", "Could not find course to get attendees");
-			return "error";
-		}
-		
-		List<User> users = userService.getUsersByCourseId(course.getCourseID());
-		
-		if(users == null || users.size() == 0){
-			model.addAttribute("errorMessage", "No users in this course");
-			return "error";
-		}
-		
-		//generate pdf
-		
-		//or make page
-		model.addAttribute("userList", users);
-		
-		return "courseroster";
-	}
-	
 	@RequestMapping(value = "/assigntocourse/{id}", method = RequestMethod.GET)
 	public String assignUsersToCourse(Model model, @PathVariable("id") int id) {
 		logger.info("Getting mass assign page {}", id);

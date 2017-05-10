@@ -7,24 +7,24 @@
 
 	<div class="container-fluid">
   		<div class="navbar-header">
-      		<a class="navbar-brand pull-left" href="/signup">AFS TSA Agile Registration</a>
+      		<a class="navbar-brand pull-left" href="/">AFS TSA Agile Registration</a>
       
       		<sec:authorize access="isAuthenticated()">
 				<ul class="nav navbar-nav navbar-center">
-      				<li><a href="/signup/users">Users</a></li>
-      				<li><a href="/signup/courses">Courses</a></li>
+      				<li><a href="/users">Users</a></li>
+      				<li><a href="/courses">Courses</a></li>
     			</ul>
     			<ul class="nav navbar-nav navbar-right">
-      				<li><a href="/signup/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      				<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     			</ul>
 			</sec:authorize>
 			
 			<sec:authorize access="isAnonymous()">
 				<ul class="nav navbar-nav navbar-center">
-      				<li><a href="/signup/register">Register</a></li>
+      				<li><a href="/register">Register</a></li>
     			</ul>
 	    		<ul class=" nav navbar-nav navbar-right">
-      				<li><a href="/signup/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      				<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     			</ul>
     		</sec:authorize>
     	</div>

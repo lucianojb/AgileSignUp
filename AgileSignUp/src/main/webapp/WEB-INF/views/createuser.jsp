@@ -28,7 +28,30 @@ $(document).ready(function(){
 	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 	
   	<div class="container">
-  		<div class= "row">
+  	
+  	
+  	      <div class = "row">
+              <div class = "col-sm-3 col-centered">
+              <h1 style = "text-align:center; font-weight: bold;">TSA Agile Services (TAS) </h1>
+              </div>
+          </div>
+          
+          <div class = "row">
+              <div class = "col-sm-6 col-centered">
+              <h2 style = "text-align:center">Agile Way Fundamentals Training Registration </h2>
+              </div>
+          </div>
+          
+          <div class = "row">
+              <div class = "col-sm-7 col-centered">
+              <h4 style = "text-align:center">
+                  Thank you for taking the time to register for this course. We look forward to having you in our training! 
+                Please be on the lookout for a follow-up email with additional information closer to the class start date.
+            </h4>
+              </div>
+          </div>
+  	
+  		<div class= "row top-buffer">
   			<div class="col-sm-3 col-sm-offset-3">	
   				<div class="form-group">
 					<label for="firstName">First Name</label>

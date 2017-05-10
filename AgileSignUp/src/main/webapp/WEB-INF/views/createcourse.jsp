@@ -32,24 +32,23 @@
 	<form name="myForm" method="POST">
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
-		<div class="bootstrap-iso">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-4 col-sm-offset-4">
-						<div class="form-group">
-							<!-- Date input -->
-							<label class="control-label">Course Date</label>
-							<div class="input-group">
-								<input class="form-control" id="pickedDate" name="pickedDate" type="text"/>
-							</div>
+			
+		<div class="container">
+			<div class="row">
+			
+				<div class="col-sm-3 col-centered">
+					<div class="form-group">
+						<!-- Date input -->
+						<label class="control-label">Course Date</label>
+						<div class="input-group">
+							<input class="form-control" id="pickedDate" name="pickedDate"
+								type="text" placeholder="XX/XX/XXXX - XX/XX/XXXX" />
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="container">
-			<div class="row">
+			<div class="row top-buffer">
 				<div class="col-sm-3 col-centered">
 					<button type="submit" class="btn btn-success btn-block">Create
 						new course!</button>

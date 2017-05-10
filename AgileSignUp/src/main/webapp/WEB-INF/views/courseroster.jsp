@@ -15,17 +15,26 @@
 		
 		<div class="container">
 		<div class="row">
-			<div class = "col-sm-3 col-centered">
+			<div class = "col-sm-8 col-centered">
 				<h1 style="text-align: center"> User List</h1>
+
 					<c:choose>
 					<c:when test="${empty userList}">
 						No users assigned to course.
 					</c:when>
 					<c:otherwise>
-						<table id="roster">
+						
+ 						<table class="table table-bordered">
+    					<thead>
+      					<tr>
+        					<th style="text-align: center;">Names</th>
+        					<th style="text-align: center;">Signature</th>
+      					</tr>
+    					</thead>
+    					<tbody>		
 							<c:forEach items="${userList}" var="name">
 								<tr>
-									<td id="rosterName">${name.lastName}, ${name.firstName}</td>
+									<td style="text-align: center" id="rosterName">${name.lastName}, ${name.firstName}</td>
 									<td id="rosterSignature"></td>
 								</tr>
 							</c:forEach>

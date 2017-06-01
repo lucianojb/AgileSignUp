@@ -15,6 +15,8 @@
 <body>
 	<jsp:include page="adminheader.jsp" /> 	
 	
+	<form method=POST>
+	<input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
 	<div class="container">
 		<div class="row">
 			<div class = "col-sm-3 col-centered">
@@ -34,8 +36,12 @@
 		<div class="row top-buffer">
 			<div class = "col-sm-3 col-centered">
 				<a href="../courses" type="button" class="btn btn-success btn-block">Return to Courses</a>
+				<c:if test="${not empty emailList}">
+					<button type="submit" class="btn btn-info btn-block" name="submit" value="reminder">Send Email Reminder</button>
+				</c:if>
 			</div>
 		</div>
-	</div>	
+	</div>
+	</form>	
 </body>
 </html>

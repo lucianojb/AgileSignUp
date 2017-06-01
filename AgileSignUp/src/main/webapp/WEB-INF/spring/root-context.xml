@@ -72,6 +72,8 @@
 			<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
+	<bean id="emailService" class="com.agile.signup.service.EmailService"></bean>
+	
 	<bean id="customAuthenticationSuccessHandler" class="com.agile.signup.security.customAuthenticationSuccessHandler"/>
 </beans>
 

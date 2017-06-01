@@ -1,7 +1,12 @@
 package com.agile.signup.web;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.agile.signup.models.Course;
 import com.agile.signup.models.User;
 import com.agile.signup.service.CourseService;
+import com.agile.signup.service.EmailService;
 import com.agile.signup.service.UserService;
 
 /**
@@ -30,6 +36,9 @@ public class CourseController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	EmailService emailService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
 	
@@ -146,6 +155,56 @@ public class CourseController {
 		model.addAttribute("emailList", emails);
 		
 		return "attendeeslist";
+	}
+	
+	@RequestMapping(value = "/attendeeslist/{id}", method = RequestMethod.POST)
+	public String getAttendees(Model model, @PathVariable("id") int courseID, String submit){
+		
+		if(submit == null){
+			model.addAttribute("errorMessage", "Did not recognize request");
+			return "error";
+		}
+		
+		if(submit.equals("reminder")){
+			Course course = courseService.getCourseById(courseID);
+			if(course == null){
+				model.addAttribute("errorMessage", "Unable to find course with this id");
+				return "error";
+			}
+			String firstDay = course.getCourseDate().split("-")[0];
+			DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+			Date startDate = null;
+			try {
+				startDate = df.parse(firstDay);
+			} catch (ParseException e) {
+				e.printStackTrace();
+				model.addAttribute("Could not parse course date");
+				return "error";
+			}
+			
+			Date currentDate = new Date();
+			long diff = startDate.getTime() - currentDate.getTime();
+			long daysFromNowUntilCourse = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+			
+			if(daysFromNowUntilCourse < 0){
+				model.addAttribute("errorMessage", "Cannot send a reminder for a course in the past");
+				return "error";
+			}
+			
+			System.out.println("Days until course: " + daysFromNowUntilCourse);
+			
+			List<User> usersInCourse = userService.getUsersByCourseId(courseID);
+			if(usersInCourse == null || usersInCourse.size() == 0){
+				model.addAttribute("errorMessage", "No users available to send emails to");
+				return "error";
+			}
+			
+			emailService.publishReminder(usersInCourse, course.getCourseDate(), (int)daysFromNowUntilCourse);
+			
+			return "emailsuccess";
+		}
+		
+		return "courses";
 	}
 	
 	@RequestMapping(value = "/courseroster/{id}", method = RequestMethod.GET)

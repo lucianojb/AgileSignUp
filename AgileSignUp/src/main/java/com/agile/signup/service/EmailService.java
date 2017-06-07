@@ -35,7 +35,7 @@ public class EmailService {
 				emails.add(users.get(x).getEmail());
 			}
 			
-			input = new FileInputStream("smtp.properties");
+			input = this.getClass().getClassLoader().getResourceAsStream("smtp.properties");
 			amazonSESProps.load(input);
 			
 			Properties systemProps = System.getProperties();
@@ -57,7 +57,7 @@ public class EmailService {
 			
 			msg.setSubject(amazonSESProps.getProperty("reminder_subject"));
 			String bodyText = amazonSESProps.getProperty("reminder_body");
-			bodyText = bodyText.replace("xxxx", courseDate);
+			bodyText = bodyText.replaceAll("xxxx", courseDate);
 			bodyText = bodyText.replaceAll("yyyy", "" + daysUntil);
 			msg.setContent(bodyText, "text/plain");
 			

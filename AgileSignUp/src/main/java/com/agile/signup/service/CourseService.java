@@ -58,7 +58,7 @@ public class CourseService {
 	
 	public boolean addAttendeeToCourse(Course course, User user) {
 		course.setNumberAttendees(course.getNumberAttendees() + 1);
-		if(course.getNumberAttendees() == MAX_NUMBER_ATTENDEES){
+		if(course.getNumberAttendees() >= MAX_NUMBER_ATTENDEES){
 			course.setAvailable(false);
 		}
 		
@@ -68,8 +68,9 @@ public class CourseService {
 
 	public boolean removeAttendeeFromCourse(Course course, User user) {
 		course.setNumberAttendees(course.getNumberAttendees() - 1);
-		course.setAvailable(true);
-		
+		if(course.getNumberAttendees() <MAX_NUMBER_ATTENDEES) {
+			course.setAvailable(true);
+		}		
 		user.setCourseID(null);
 		return mixedDao.saveUserAndCourse(user, course);
 	}

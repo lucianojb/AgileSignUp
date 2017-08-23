@@ -40,7 +40,7 @@ public class RegisterController {
 		
 		model.addAttribute("divisions", divisionList);
 		
-		List<Course> courseList = courseService.getListOfCourses();
+		List<Course> courseList = courseService.getListOfAvailableCourses();
 		
 		model.addAttribute("coursesList", courseList);
 		
